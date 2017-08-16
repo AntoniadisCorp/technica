@@ -1,0 +1,21 @@
+{
+  "name": "technicalprb",
+  "description": "Technical Plumbing Support Team",
+  "main": "app.js",
+  "authors": [
+    "Antoniadis Prokopios <prokopis3@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ], 
+  "dependencies": {
+    "bootstrap": "4",
+    "material-design-lite": "^1.3.0"
+  }
+}
