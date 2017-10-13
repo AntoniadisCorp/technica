@@ -8,6 +8,7 @@ var fss = require('fs')
 , cookieParser = require('cookie-parser')
 , bodyParser = require('body-parser')
 // , flash    = require('connect-flash')
+
 // Configuring Passport
 , passport = require('passport')
 , session = require('express-session')
@@ -17,14 +18,6 @@ var fss = require('fs')
     cookie: { secure: true, httpOnly: true }
 }
 
-, https_options = {
-    key: fss.readFileSync('server-key.pem'), 
-    cert: fss.readFileSync('server-crt.pem'),
-    // ca: fss.readFileSync('ca-crt.pem'),
-    // crl: fss.readFileSync('ca-crl.pem'), 
-    // requestCert: true, 
-    // rejectUnauthorized: true
-}
 , PORT = 3000
 // , HOST = 'localhost' //prokopis.hopto.org
 , passport = require('passport')
@@ -35,7 +28,8 @@ var fss = require('fs')
 , app = express()
 
 // APP ROUTES
-, index = require('./routes');
+, index = require('./routes')
+, tasks   = require('./routes/task');
 
 // becomes
 var env = process.env.NODE_ENV || 'production'
@@ -51,7 +45,7 @@ if ('production' == env) {
 
 
 // View Engine
-app.use(favicon(__dirname + '/public/favicon.ico'))
+app.use(favicon(fpath.join(__dirname + '/public/favicon.ico')))
 app.set('views', express.static(fpath.join(__dirname + '/public/views')))
 
 //app.use('/scripts', express.static(fpath.join(__dirname + '/public/node_modules')))
@@ -86,7 +80,7 @@ app.use(passport.session())
 
 // USE ROUTES
 app.use('/', index)
-
+app.use('/task', tasks)
 
 
 
@@ -145,15 +139,16 @@ app.use(function(err, req, res, next) {
     })
 })
 
-var server = httpsecurity.createServer(https_options, app).listen(PORT/*,  HOST  */)
+// var attach = (server) => {
+    
+//     var appio = socket_io.listen(server)
+//     , io = require('./ServerJavascript/socket.io')('');
+//     io.attach(appio)
+// }
 
-, appio = socket_io.listen(server)
+// app.io = { attach: attach }
 
-, io = require('./ServerJavascript/socket.io')('')
-
-io.setSock(appio)
-
-console.log('HTTPS Server listening on %s', PORT/* , PORT */)
+// console.log('HTTPS Server listening on %s:%s'/* , HOST */, PORT)
 
 
 module.exports = app;

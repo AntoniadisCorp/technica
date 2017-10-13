@@ -7,7 +7,7 @@ import { Location,
   PathLocationStrategy, 
   HashLocationStrategy } from '@angular/common'
 
-import { HomeRoutes }            from './routes/index'
+import { HomeRoutes, AdminRoutes }            from './routes/index'
 import { PageNotFoundComponent } from './components/index'
 // import { AuthGuard }             from './_guards/index'
 // import { FeatureRoutes }  from './routes/feature.router';
@@ -16,13 +16,8 @@ import { PageNotFoundComponent } from './components/index'
 export const appRoutes: Routes = [
   // Add routes form a different file
   ...HomeRoutes,
+  ...AdminRoutes,
   //...FeatureRoutes,
-  // {
-  //   path: '',
-
-  //   redirectTo: '/home', 
-  //   pathMatch: 'full'
-  // },
   { path: '**', component: PageNotFoundComponent }
 ]
 

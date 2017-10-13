@@ -5,7 +5,8 @@ import { enableProdMode }         from '@angular/core'
 
 // Enable production mode unless running locally
 if (!/localhost/.test(document.location.host)) {
-//   enableProdMode()
-} enableProdMode()
+    // console.log(document.location.host)
+    enableProdMode()
+}
 
 platformBrowserDynamic().bootstrapModule(AppModule);
