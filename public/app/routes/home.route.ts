@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router'
 // import { AuthGuard, DeAuthGuard, CanLoadGuard }             from '../_guards/index'
 
-import { HomeListComponent, 
+import { HomePageComponent,
+    BlogPageComponent,
+    PolicyComponent
     /* RegisterListComponent, 
     CarboardListComponent, 
     LoginComponent */ }             from '../components/index'
@@ -9,7 +11,13 @@ import { HomeListComponent,
 // Route Configuration
 export const HomeRoutes: Routes = [
 
-    { path: '', component: HomeListComponent },
+    { path: '',
+        // redirectTo: '/', 
+        pathMatch: 'full', 
+        component: HomePageComponent 
+    },
+    { path: 'blog', component: BlogPageComponent },
+    { path: 'privacy', component: PolicyComponent }
     // { path: 'carboard/:id', component: CarboardListComponent, canDeactivate: [DeAuthGuard] },
     // { path: 'login', component: LoginComponent},
     // { path: 'register', component: RegisterListComponent/*, canLoad: [CanLoadGuard]*/ }

@@ -15,16 +15,11 @@ var index_2 = require("./components/index");
 // import { AuthGuard }             from './_guards/index'
 // import { FeatureRoutes }  from './routes/feature.router';
 // Route Configuration
-exports.appRoutes = index_1.HomeRoutes.concat([
+exports.appRoutes = index_1.HomeRoutes.concat(index_1.AdminRoutes, [
     //...FeatureRoutes,
-    // {
-    //   path: '',
-    //   redirectTo: '/home', 
-    //   pathMatch: 'full'
-    // },
     { path: '**', component: index_2.PageNotFoundComponent }
 ]);
-var RoutingModule = (function () {
+var RoutingModule = /** @class */ (function () {
     function RoutingModule() {
     }
     RoutingModule = __decorate([

@@ -2,7 +2,7 @@
 import { NgModule, NO_ERRORS_SCHEMA }         from '@angular/core'
 import { BrowserModule }    from '@angular/platform-browser'
 import { HttpModule }       from '@angular/http'
-import { FormsModule, NgForm, ReactiveFormsModule }      from '@angular/forms'
+import { ReactiveFormsModule, FormsModule }      from '@angular/forms'
 import { NgbModule }        from '@ng-bootstrap/ng-bootstrap'
 import { /* BrowserAnimationsModule */ NoopAnimationsModule }    from '@angular/platform-browser/animations'
 import { CommonModule }       from '@angular/common'
@@ -65,9 +65,9 @@ import { WhiteboxComponent, SanitizeHtml } from './directives/index'
   imports: [
 
         BrowserModule, 
-        HttpModule, 
-        FormsModule,
+        HttpModule,
         ReactiveFormsModule,
+        FormsModule,
         NgbModule.forRoot(),
         RoutingModule,
         Angular2FontawesomeModule,
