@@ -32,6 +32,13 @@ coverage
 
 # Bower dependency directory (https://bower.io/)
 bower_components
+components/
+
+# Styles bs
+# styles/bs/
+
+# Javascript files
+public/*.js*
 
 # node-waf configuration
 .lock-wscript
@@ -64,3 +71,4 @@ typings/
 # dotenv environment variables file
 .env
 
+package-lock*
