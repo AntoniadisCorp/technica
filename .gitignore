@@ -40,6 +40,8 @@ components/
 # Javascript files
 public/*.js*
 
+*.mp4
+
 # node-waf configuration
 .lock-wscript
 
