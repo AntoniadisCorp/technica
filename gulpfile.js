@@ -7,7 +7,7 @@ var gulp = require('gulp')
 	argv 		= require('yargs').argv
 
 , jsdoc = require('gulp-jsdoc3')
-
+, gutil = require('gulp-util')
 , babel	= require('gulp-babel')
 , babelify = require('babelify')
 , browserify = require('browserify')
@@ -28,7 +28,7 @@ gulp.task('tslint', function() {
 });
 
 gulp.task('clean', function () {
-  return gulp.src('~/technicalprb', {read: false})
+  return gulp.src('../TechnicalPRB', {read: false})
     .pipe(clean());
 });
 
@@ -56,8 +56,11 @@ gulp.task('doc', function (cb) {
 gulp.task('copy_root', function() {
 	gulp.src(['./app.js'])
 	.pipe(babel())
-	.pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
-	.pipe(gulp.dest('~/technicalprb/'));
+	.pipe(uglify({ mangle: false}).on('error', function(err) {
+		gutil.log(gutil.colors.red('[Error]'), err.toString());
+		console.log('\x07',err.message); return this.end(); 
+	}))
+	.pipe(gulp.dest('../TechnicalPRB/'));
 });
 
 
@@ -66,7 +69,7 @@ gulp.task('copy_root', function() {
 *		RUN : gulp copy_assets
 ******************************************************/
 gulp.task('copy_assets', function() {
-	gulp.src(['./assets/*']).pipe(gulp.dest('~/technicalprb/assets/'));
+	gulp.src(['./assets/*']).pipe(gulp.dest('../TechnicalPRB/assets/'));
 });
 
 
@@ -75,9 +78,9 @@ gulp.task('copy_assets', function() {
 *		RUN : gulp copy_bin
 ******************************************************/
 gulp.task('copy_bin', function() {
-	gulp.src(['./bin/www'])
+	gulp.src(['./bin/www', './bin/www_NoSSL'])
 	.pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
-	.pipe(gulp.dest('~/technicalprb/bin/'));
+	.pipe(gulp.dest('../TechnicalPRB/bin/'));
 });
 
 
@@ -87,44 +90,63 @@ gulp.task('copy_bin', function() {
 ******************************************************/
 gulp.task('copy_nodemodules', function() {
 	gulp.src([
-		// './public/node_modules/**/*'
-		'./public/node_modules/@angular/core/bundles/core.umd.min.js',
-		'./public/node_modules/@angular/common/bundles/common.umd.min.js',
-		'./public/node_modules/@angular/compiler/bundles/compiler.umd.min.js',
-		'./public/node_modules/@angular/animations/bundles/animations.umd.min.js',
-		'./public/node_modules/@angular/animations/bundles/animations-browser.umd.min.js',
-		'./public/node_modules/@angular/platform-browser/bundles/platform-browser.umd.min.js',
-		'./public/node_modules/@angular/platform-browser/bundles/platform-browser-animations.umd.min.js',
-		'./public/node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.min.js',
-		'./public/node_modules/@angular/http/bundles/http.umd.min.js',
-		'./public/node_modules/@angular/router/bundles/router.umd.min.js',
-		'./public/node_modules/@angular/forms/bundles/forms.umd.min.js',
-		'./public/node_modules/@angular/upgrade/bundles/upgrade.umd.min.js',
-		'./public/node_modules/@angular/material/bundles/material.umd.min.js',
-		'./public/node_modules/@angular/cdk/bundles/cdk.umd.min.js',
-		'./public/node_modules/@angular/animations/bundles/animations.umd.min.js',
-		'./public/node_modules/@angular/flex-layout/bundles/flex-layout.umd.min.js',
-		'./public/node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
-		'./public/node_modules/@types/**',
-		'./public/node_modules/hammerjs/hammer.min.js',
-		'./public/node_modules/leaflet/dist/leaflet.js',
-		// './public/node_modules/rxjs/bundles/Rx.min.js',
-		'./public/node_modules/angular2-fontawesome/bundles/angular2-fontawesome.umd.min.js',
-		'./public/node_modules/angular-in-memory-web-api/bundles/in-memory-web-api.umd.min.js',
-		'./public/node_modules/socket.io-client/dist/socket.io.slim.js',
-		'./public/node_modules/core-js/client/shim.min.js',
+		// './public/node_modules/@angular/core/bundles/core.umd.min.js',
+		// './public/node_modules/@angular/common/bundles/common.umd.min.js',
+		// './public/node_modules/@angular/compiler/bundles/compiler.umd.min.js',
+		// './public/node_modules/@angular/animations/bundles/animations.umd.min.js',
+		// './public/node_modules/@angular/animations/bundles/animations-browser.umd.min.js',
+		// './public/node_modules/@angular/platform-browser/bundles/platform-browser.umd.min.js',
+		// './public/node_modules/@angular/platform-browser/bundles/platform-browser-animations.umd.min.js',
+		// './public/node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.min.js',
+		// './public/node_modules/@angular/http/bundles/http.umd.min.js',
+		// './public/node_modules/@angular/router/bundles/router.umd.min.js',
+		// './public/node_modules/@angular/forms/bundles/forms.umd.min.js',
+		// './public/node_modules/@angular/upgrade/bundles/upgrade.umd.min.js',
+		// './public/node_modules/@angular/material/bundles/material.umd.min.js',
+		// './public/node_modules/@angular/animations/bundles/animations.umd.min.js',
+		// './public/node_modules/@angular/flex-layout/bundles/flex-layout.umd.min.js',
+		// './public/node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
+		// './public/node_modules/@angular/cdk/bundles/cdk-platform.umd.min.js',
+		// './public/node_modules/@angular/cdk/bundles/cdk-a11y.umd.min.js',
+		// './public/node_modules/@angular/cdk/bundles/cdk-coercion.umd.min.js',
+		// './public/node_modules/@angular/cdk/bundles/cdk-keycodes.umd.min.js',
+		// './public/node_modules/@angular/cdk/bundles/cdk-rxjs.umd.min.js',
+		// './public/node_modules/@angular/cdk/bundles/cdk-bidi.umd.min.js',	
+		// './public/node_modules/@angular/cdk/bundles/cdk-observers.umd.min.js',
+		// './public/node_modules/@angular/cdk/bundles/cdk-overlay.umd.min.js',
+		// './public/node_modules/@angular/cdk/bundles/cdk-scrolling.umd.min.js',
+		// './public/node_modules/@angular/cdk/bundles/cdk-stepper.umd.min.js',
+		// './public/node_modules/@angular/cdk/bundles/cdk-table.umd.min.js',
+		// './public/node_modules/@angular/cdk/bundles/cdk-collections.umd.min.js',
+		// './public/node_modules/@angular/cdk/bundles/cdk-portal.umd.min.js',
 
+		// './public/node_modules/angular-bootstrap-md/bundles/angular-bootstrap-md.umd.min.js',
+		// './public/node_modules/@agm/core/core.umd.min.js',
+		// './public/node_modules/@types/**',
+		// './public/node_modules/hammerjs/hammer.min.js',
+		// './public/node_modules/leaflet/dist/leaflet.js',
+		// './public/node_modules/rxjs/bundles/Rx.min.js',
+		// './public/node_modules/angular2-fontawesome/bundles/angular2-fontawesome.umd.min.js',
+		// './public/node_modules/angular-in-memory-web-api/bundles/in-memory-web-api.umd.min.js',
+		// './public/node_modules/socket.io-client/dist/socket.io.slim.js',
+		// './public/node_modules/ng2-recaptcha/ng2-recaptcha.js',
+		'./public/node_modules/core-js/client/shim.min.js',
 		'./public/node_modules/zone.js/dist/zone.min.js',
 		'./public/node_modules/reflect-metadata/Reflect.js',
 		'./public/node_modules/systemjs/dist/system.src.js',
 		'./public/node_modules/systemjs/dist/system-polyfills.js',
+		'./public/node_modules/core-js/client/shim.min.js.map',
+
+		'./public/node_modules/systemjs/dist/system.src.js.map',
+		'./public/node_modules/reflect-metadata/Reflect.js.map',
+
 		'./public/node_modules/rxjs/**',
         './public/node_modules/zone.js/dist/**',
-		'./public/node_modules/@angular/**'
+		// './public/node_modules/@angular/**'
 
 	] , { base: './node_modules/' } )
 	// .pipe(gulp.dest('./public/modules/'))
-	.pipe(gulp.dest('~/technicalprb/node_modules/'));
+	.pipe(gulp.dest('../TechnicalPRB/lib/'));
 });
 
 
@@ -137,8 +159,8 @@ gulp.task('views', function() {
 	var	ejsmin = require('gulp-ejsmin');
 
 	// minify views/ng_partials
-	var htmlSrc = './public/views/ng_partials/*.ejs',
-        htmlDst = '~/technicalprb/public/views/ng_partials';
+	var htmlSrc = './public/views/ang_partial/*.ejs',
+        htmlDst = '../TechnicalPRB/public/views/ang_partial';
 	gulp.src(htmlSrc)
 	//	.pipe(changed(htmlDst))
 		.pipe(ejsmin({removeComment: true}))
@@ -146,7 +168,7 @@ gulp.task('views', function() {
 
 	// minify views/node_partials
 	htmlSrc = './public/views/main_partials/*.ejs';
-	htmlDst = '~/technicalprb/public/views/main_partials';
+	htmlDst = '../TechnicalPRB/public/views/main_partials';
 	gulp.src(htmlSrc)
 	//	.pipe(changed(htmlDst))
 		.pipe(ejsmin({removeComment: true}))
@@ -155,7 +177,7 @@ gulp.task('views', function() {
 	// minify all views/*.* ejs files
 	gulp.src(['./public/views/*.ejs'])
 		.pipe(ejsmin({removeComment: true}))
-		.pipe(gulp.dest('~/technicalprb/public/views/'));
+		.pipe(gulp.dest('../TechnicalPRB/public/views/'));
 });
 
 
@@ -165,9 +187,9 @@ gulp.task('views', function() {
 ******************************************************/
 gulp.task('routes', function() {
 	gulp.src(['./routes/*.js'])
-	//.pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
 	.pipe(babel())
-	.pipe(gulp.dest('~/technicalprb/routes/'));
+	.pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
+	.pipe(gulp.dest('../TechnicalPRB/routes/'));
 });
 
 
@@ -188,7 +210,7 @@ gulp.task('ServerJavascript', function() {
 	.pipe(stripDebug())
 	.pipe(babel())
 	.pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
-	.pipe(gulp.dest('~/technicalprb/ServerJavascript/'));
+	.pipe(gulp.dest('../TechnicalPRB/ServerJavascript/'));
 
 	// These two files cannot be parsed by uglify module so (maybe because they are written in ES6 format) so I just copy them.
 	gulp.src([
@@ -200,13 +222,14 @@ gulp.task('ServerJavascript', function() {
 				// './ServerJavascript/model.js',
 				// './ServerJavascript/MyServer.js',
 				// './ServerJavascript/Parser.js',
-				'./ServerJavascript/TcpSocketServer.js',
-				'./ServerJavascript/TcpTK103conn.js',
-				'./ServerJavascript/User.js',
+				// './ServerJavascript/TcpSocketServer.js',
+				// './ServerJavascript/TcpTK103conn.js',
+				// './ServerJavascript/User.js',
 				// './ServerJavascript/UdpManager.js',
 				// './ServerJavascript/ProfileManager.js',
 				// './ServerJavascript/FTPSystemSetupManager.js',
 				'./ServerJavascript/socket.io.js',
+				'./ServerJavascript/emailer.js',
 				// './ServerJavascript/settings.js',
 
 				// './ServerJavascript/Slave_NONE.js',
@@ -218,17 +241,18 @@ gulp.task('ServerJavascript', function() {
 	)
 	.pipe(babel())
 	.pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
-	.pipe(gulp.dest('~/technicalprb/ServerJavascript/'));
+	.pipe(gulp.dest('../TechnicalPRB/ServerJavascript/'));
 });
 
 
 gulp.task('watch', ['scripts'], function() {
-    gulp.watch('./public/app/**/*.ts', ['scripts']);
+    gulp.watch('./public/app/**/*.ts', ['ang_scripts']);
 });
+
 
 /*****************************************************
 * JS concat, strip debugging and minify
-*		RUN : gulp ang_scripts
+*		RUN : gulp 
 ******************************************************/
 gulp.task('ang_scripts', function() {
 
@@ -238,7 +262,7 @@ var tsResult = gulp.src(['./public/app/**/*.ts',
   		.pipe(sourcemaps.init()) // This means sourcemaps will be generated 
         .pipe(ts(tscConfig.compilerOptions))
 		.pipe(sourcemaps.write()) // Now the sourcemaps are added to the .js file 
-		// .pipe(gulp.dest('~/technicalprb/public/app'));
+		// .pipe(gulp.dest('../TechnicalPRB/public/app'));
     
 
 	// var sources = browserify({
@@ -300,7 +324,7 @@ var tsResult = gulp.src(['./public/app/**/*.ts',
     // .pipe(vinylBuffer())
 	// .pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
 	// .pipe(gulp.dest('./public/app_JS/'))		// Put resulting file in the development folder
-    // .pipe(gulp.dest('~/technicalprb/public/app_JS/')); // Put resulting file also in the build folder
+    // .pipe(gulp.dest('../TechnicalPRB/public/app_JS/')); // Put resulting file also in the build folder
 });
 
 
@@ -328,21 +352,21 @@ gulp.task('bower_scripts', ['bundle:app'], function() {
     // .pipe(stripDebug())
 	// .pipe(jshint())
 	.pipe(gulp.dest('./public/'))		// Put resulting file in the development folder
-	.pipe(gulp.dest('~/technicalprb/public/')); // Put resulting file also in the build folder */
+	.pipe(gulp.dest('../TechnicalPRB/public/')); // Put resulting file also in the build folder */
 
 	// This file is not minimized. Minimize it and later add the minimized version to the gl2.js
 	gulp.src(['./public/app/ang4.js'])
 	.pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
-    .pipe(concat('ang4.min.js'))
-	.pipe(gulp.dest('./public/app'))		// Put resulting file in the development folder
-	.pipe(gulp.dest('~/technicalprb/public/app'));		// Put resulting file in the development folder
+    .pipe(concat('ang.min.js'))
+	// .pipe(gulp.dest('./public/app'))		// Put resulting file in the development folder
+	.pipe(gulp.dest('../TechnicalPRB/public/app'));		// Put resulting file in the development folder
 
 	// // This file is not minimized. Minimize it and later add the minimized version to the gl2.js
 	// gulp.src(['./public/systemjs.conifg.js'])
 	// .pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
     // .pipe(concat('systemjs.conifg.js'))
 	// .pipe(gulp.dest('./public/'))		// Put resulting file in the development folder
-	// .pipe(gulp.dest('~/technicalprb/public/'));		// Put resulting file in the development folder
+	// .pipe(gulp.dest('../TechnicalPRB/public/'));		// Put resulting file in the development folder
 	
 
 	// First general library	// // This file is not minimized. Minimize it and later add the minimized version to the gl2.js
@@ -350,8 +374,12 @@ gulp.task('bower_scripts', ['bundle:app'], function() {
 	// .pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
     // .pipe(concat('systemjs.conifg.js'))
 	// .pipe(gulp.dest('./public/'))		// Put resulting file in the development folder
-	// .pipe(gulp.dest('~/technicalprb/public/'));		// Put resulting file in the development folder
-	gulp.src(['./public/components/jquery/dist/jquery.slim.min.js',
+	// .pipe(gulp.dest('../TechnicalPRB/public/'));		// Put resulting file in the development folder
+	gulp.src(['./public/components/jquery/dist/jquery.min.js',
+			  './public/components/popper.js/dist/umd/popper.min.js',
+			//   './public/components/popper.min.js.map',
+			  './public/components/bootstrap/dist/js/bootstrap.min.js',
+			  './public/components/wow/dist/wow.min.js',
 			// './public/components/material-design-lite/material.min.js',
 			// './public/components/angular/angular.min.js',
 			// './public/components/sweetalert2/dist/sweetalert2.min.js',
@@ -362,7 +390,7 @@ gulp.task('bower_scripts', ['bundle:app'], function() {
 			])
     .pipe(concat('gl1.js'))
     .pipe(gulp.dest('./public/'))		// Put resulting file in the development folder
-    .pipe(gulp.dest('~/technicalprb/public/')); // Put resulting file also in the build folder
+    .pipe(gulp.dest('../TechnicalPRB/public/')); // Put resulting file also in the build folder
 	
 	
   	// Second general library
@@ -381,7 +409,7 @@ gulp.task('bower_scripts', ['bundle:app'], function() {
 	.pipe(concat('gl2.js'))
 	.pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
     // .pipe(gulp.dest('./public'))		// Put resulting file in the development folder
-    .pipe(gulp.dest('~/technicalprb/public')); // Put resulting file also in the build folder
+    .pipe(gulp.dest('../TechnicalPRB/public')); // Put resulting file also in the build folder
 
 
   // Third general library
@@ -395,7 +423,7 @@ gulp.task('bower_scripts', ['bundle:app'], function() {
 			])
     .pipe(concat('gl3.js'))
     .pipe(gulp.dest('./public/'))		// Put resulting file in the development folder
-    .pipe(gulp.dest('~/technicalprb/public/')); // Put resulting file also in the build folder
+    .pipe(gulp.dest('../TechnicalPRB/public/')); // Put resulting file also in the build folder
 });
 
 
@@ -403,37 +431,48 @@ gulp.task('bower_scripts', ['bundle:app'], function() {
 
 /*****************************************************
 * Copy other folder & files inside public folder
-*		RUN : gulp AppJS_other
+*		RUN : gulp appjs_other
 ******************************************************/
-gulp.task('AppJS_other', function() {
+gulp.task('appjs_other', function() {
 
 	var imagemin = require('gulp-imagemin');
 
-	gulp.src(['./public/fonts/*']).pipe(gulp.dest('~/technicalprb/public/fonts/'));
-
+	gulp.src(['./public/styles/font/**/*'])
+		.pipe(gulp.dest('../TechnicalPRB/public/styles/font/'));
+	// gulp.src(['./public/font/*']).pipe(gulp.dest('../TechnicalPRB/public/font/'));
 // There is some compatibility with imagemin after the node modules update on 11/02/2016.
-	gulp.src(['./public/images/*'])
+	gulp.src(['./public/img/**/**/*',
+			  '!./public/img/Videos/*'])
 		.pipe(imagemin())
-		.pipe(gulp.dest('~/technicalprb/public/images/'));
+		.pipe(gulp.dest('../TechnicalPRB/public/img/'));
 
-	gulp.src(['./public/node_modules/leaflet/dist/images/*'])
+	/* gulp.src(['./public/node_modules/leaflet/dist/images/*'])
 		.pipe(imagemin())
 		.pipe(gulp.dest('./public/styles/bs/images/'))
-		.pipe(gulp.dest('~/technicalprb/public/styles/bs/images/'));
-
-	// Copy Https certification files
-	gulp.src(['./hacksparrow*.*']).pipe(gulp.dest('~/technicalprb/'));
-	gulp.src(['./package.json']).pipe(gulp.dest('~/technicalprb/'));
-	gulp.src(['./public/package.json']).pipe(gulp.dest('~/technicalprb/public'))
-	gulp.src(['./public/package-lock.json']).pipe(gulp.dest('~/technicalprb/public'))
-	gulp.src(['./public/index.html']).pipe(gulp.dest('~/technicalprb/public'))
-
-
-	gulp.src(['./public/favicon.ico']).pipe(gulp.dest('~/technicalprb/public/'));
+		.pipe(gulp.dest('../TechnicalPRB/public/styles/bs/images/')); */
+			// Copy Https certification files and important files
+		gulp.src(['./server*.*']).pipe(gulp.dest('../TechnicalPRB/'));
+		gulp.src(['./package.json']).pipe(gulp.dest('../TechnicalPRB/'));
+		gulp.src(['./public/package.json']).pipe(gulp.dest('../TechnicalPRB/public'))
+		gulp.src(['./public/package-lock.json']).pipe(gulp.dest('../TechnicalPRB/public'))
+		gulp.src(['./.gitignore']).pipe(gulp.dest('../TechnicalPRB/'))
+		gulp.src(['./LICENCE']).pipe(gulp.dest('../TechnicalPRB/'))
 });
 
 
-//
+
+/*****************************************************
+* INDEX LICENCE GITIGNORE concat, auto-prefix and minify
+*		RUN : gulp config_files
+******************************************************/
+gulp.task('config_files', function () {
+	
+
+	gulp.src(['./public/views/index.html']).pipe(gulp.dest('../TechnicalPRB/public/views'))
+	gulp.src(['./public/favicon.ico']).pipe(gulp.dest('../TechnicalPRB/public/'));
+})
+
+
 /*****************************************************
 * CSS concat, auto-prefix and minify
 *		RUN : gulp styles
@@ -452,7 +491,7 @@ gulp.task('styles', function() {
 		'./public/node_modules/font-awesome/fonts/*'
 		])
 		.pipe(gulp.dest('./public/styles/fonts/'))
-		.pipe(gulp.dest('~/technicalprb/public/styles/fonts/'));
+		.pipe(gulp.dest('../TechnicalPRB/public/styles/fonts/'));
 
 	// gulp.src([
 	// 	'./public/components/bootstrap/dist/css/bootstrap.min.css',
@@ -461,7 +500,7 @@ gulp.task('styles', function() {
 	// 	'./public/node_modules/@angular/material/prebuilt-themes/indigo-pink.css',
 	// ], {base: 'styles/bs' })
 	// .pipe(gulp.dest('./public/styles/bs'))
-	// .pipe(gulp.dest('~/technicalprb/public/styles/bs/'))
+	// .pipe(gulp.dest('../TechnicalPRB/public/styles/bs/'))
 
 	// This file is not minimized. Minimize it and later add the minimized version to the gl2.js
 	// gulp.src(['./public/node_modules/leaflet/dist/leaflet.css'])
@@ -469,22 +508,22 @@ gulp.task('styles', function() {
     // .pipe(concat('leaflet.min.css'))
 	// .pipe(minifyCSS())
 	// .pipe(gulp.dest('./public/styles/bs'))		// Put resulting file in the development folder
-	// .pipe(gulp.dest('~/technicalprb/public/styles/bs'));		// Put resulting file in the development folder
+	// .pipe(gulp.dest('../TechnicalPRB/public/styles/bs'));		// Put resulting file in the development folder
 
 	// This file is not minimized. Minimize it and later add the minimized version to the gl2.js
 	gulp.src(['./public/node_modules/@angular/material/prebuilt-themes/indigo-pink.css'])
 	// .pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
     .pipe(concat('indigo-pink.min.css'))
-	.pipe(minifyCSS())
+	// .pipe(minifyCSS())
 	.pipe(gulp.dest('./public/styles/bs'))		// Put resulting file in the development folder
-	.pipe(gulp.dest('~/technicalprb/public/styles/bs'));		// Put resulting file in the development folder
+	.pipe(gulp.dest('../TechnicalPRB/public/styles/bs'));		// Put resulting file in the development folder
 
 	// This file is not minimized. Minimize it and later add the minimized version to the gl2.js
 	gulp.src(['./public/node_modules/font-awesome/css/font-awesome.min.css'])
 	// .pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
     // .pipe(concat('font-awesome.min.css'))
 	.pipe(gulp.dest('./public/styles/bs'))		// Put resulting file in the development folder
-	.pipe(gulp.dest('~/technicalprb/public/styles/bs'));		// Put resulting file in the development folder
+	.pipe(gulp.dest('../TechnicalPRB/public/styles/bs'));		// Put resulting file in the development folder
 
 	// This file is not minimized. Minimize it and later add the minimized version to the gl2.js
 	gulp.src(['./public/components/bootstrap/dist/css/bootstrap.min.css'])
@@ -494,11 +533,11 @@ gulp.task('styles', function() {
 	.pipe(sass({outputStyle: 'compressed', outFile: "bootstrap.min.css"}).on('error', sass.logError))
 	.pipe(sourcemaps.write())
 	.pipe(gulp.dest('./public/styles/bs'))		// Put resulting file in the development folder
-	.pipe(gulp.dest('~/technicalprb/public/styles/bs'));		// Put resulting file in the development folder
+	.pipe(gulp.dest('../TechnicalPRB/public/styles/bs'));		// Put resulting file in the development folder
 
 	// Concat, minify bootstrap's css file one level to folder styles/bs
 	// One level down from fonts folder so it can display font icons properly
-	 gulp.src([
+	gulp.src([
 		// './public/components/angular-ui-grid/ui-grid.min.css',
 		// './public/components/components-font-awesome/css/font-awesome.min.css',
 		// './public/components/font-awesome/scss/font-awesome.scss',
@@ -513,24 +552,39 @@ gulp.task('styles', function() {
 		// './public/styles/header.scss',
 		// './public/styles/map.scss',
 		// './public/styles/register.scss'
-		'./public/node_modules/angular-bootstrap-md/scss/bootstrap/bootstrap.scss',
+		// './public/node_modules/angular-bootstrap-md/scss/bootstrap/bootstrap.scss',
 		'./public/node_modules/angular-bootstrap-md/scss/mdb.scss'
 
 	])
-	// .pipe(concat('styles.min.css'))
+	.pipe(concat('mdb-free.min.css'))
    	.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-  	.pipe(gulp.dest('./public/styles/'))
-	.pipe(gulp.dest('~/technicalprb/public/styles/')); 
+  	.pipe(gulp.dest('./public/styles/bs'))
+	.pipe(gulp.dest('../TechnicalPRB/public/styles/bs'));
+
+	gulp.src([
+		'./public/styles/admin.css',
+		'./public/styles/foot.css',
+		'./public/styles/blog.css',
+		'./public/styles/home.css',
+		'./public/styles/nav.css',
+		'./public/styles/app.css'
+
+	])
+	// .pipe(concat('mdb-free.min.css'))
+   	.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+  	// .pipe(gulp.dest('./public/styles/bs'))
+	.pipe(gulp.dest('../TechnicalPRB/public/styles'));
+
 
 		//.pipe(cssnano())
 		
 	gulp.src([
-		'./public/styles/app.css'
+		'./public/styles.css'
 	])
-	.pipe(concat('app.min.css'))
-   	.pipe(sass({outputStyle: 'compressed', outFile: "app.min.css"}).on('error', sass.logError))
-  	.pipe(gulp.dest('./public/styles/'))
-	.pipe(gulp.dest('~/technicalprb/public/styles/'));
+	.pipe(concat('styles.css'))
+   	.pipe(sass({outputStyle: 'compressed', outFile: "styles.css"}).on('error', sass.logError))
+  	// .pipe(gulp.dest('./public/styles/'))
+	.pipe(gulp.dest('../TechnicalPRB/public/'));
 
 });
 
@@ -909,8 +963,8 @@ gulp.task('default',[	'copy_root',
 						'views',
 						'copy_nodemodules',
 						'bower_scripts',
-						'AppJS_other',
-						'ang_scripts',
+						'appjs_other',
+						'config_files',
 						'ServerJavascript',
 						'styles',
 						'displayBuildMessage'

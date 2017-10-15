@@ -17,7 +17,7 @@ import { RoutingModule }    from './app.routes'
 // Material Module and fonts
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 import { MatRippleModule,
-MatButtonModule, MatCardModule,
+MatButtonModule, MatCardModule,MatProgressSpinnerModule,
 MatCheckboxModule, MatChipsModule, MatDialogModule,MatGridListModule,MatInputModule,MatPaginatorModule,MatButtonToggleModule,
 MatTabsModule, MatIconModule, MatFormFieldModule, MatTooltipModule, MatSnackBarModule }   from '@angular/material'
 // import { PlatformModule } from '@angular/cdk/platform'
@@ -71,7 +71,7 @@ import { WhiteboxComponent, SanitizeHtml } from './directives/index'
         NgbModule.forRoot(),
         RoutingModule,
         Angular2FontawesomeModule,
-        MatRippleModule,MatButtonModule, MatCardModule,
+        MatRippleModule,MatButtonModule, MatCardModule,MatProgressSpinnerModule,
         MatCheckboxModule, MatChipsModule,MatDialogModule,MatGridListModule,MatInputModule,MatPaginatorModule,MatButtonToggleModule,
         MatTabsModule, MatIconModule,MatFormFieldModule, MatTooltipModule,MatSnackBarModule,
         // BrowserAnimationsModule,

@@ -52,7 +52,7 @@ var AppModule = /** @class */ (function () {
                 ng_bootstrap_1.NgbModule.forRoot(),
                 app_routes_1.RoutingModule,
                 angular2_fontawesome_1.Angular2FontawesomeModule,
-                material_1.MatRippleModule, material_1.MatButtonModule, material_1.MatCardModule,
+                material_1.MatRippleModule, material_1.MatButtonModule, material_1.MatCardModule, material_1.MatProgressSpinnerModule,
                 material_1.MatCheckboxModule, material_1.MatChipsModule, material_1.MatDialogModule, material_1.MatGridListModule, material_1.MatInputModule, material_1.MatPaginatorModule, material_1.MatButtonToggleModule,
                 material_1.MatTabsModule, material_1.MatIconModule, material_1.MatFormFieldModule, material_1.MatTooltipModule, material_1.MatSnackBarModule,
                 // BrowserAnimationsModule,

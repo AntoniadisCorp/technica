@@ -39,9 +39,10 @@ components/
 
 # Javascript files
 public/*.js*
-
+ang4.js
 *.mp4
-
+*.ai
+*.psd
 # node-waf configuration
 .lock-wscript
 

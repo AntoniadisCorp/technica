@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer')
 const path = require('path')
 const acc = {
     user: 'info@carwatcher.org',
-    host: 'mail.carwatcher.org',
+    host: 'carwatcher.org',
     pass: 'For(Life!=0)',
     port: 25,
     secure: true
@@ -61,8 +61,10 @@ class Emailer {
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
                 host: acc.host,
-                port: acc.port,
-                secure: false, // true for 465, false for other ports
+                port: 25,
+                pool: true,
+                secure: true, // true for 465, false for other ports
+                // requireTLS: true,
                 auth: {
                     user: acc.user, // generated ethereal user
                     pass: acc.pass  // generated ethereal password
@@ -86,8 +88,8 @@ class Emailer {
                 // Preview only available when sending through an Ethereal account
                 if (!error)
                     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-
-                callback (this.emailjs(mailOptions))
+                // this.emailjs(mailOptions)
+                callback (info&&info.messageId? info : {error: 'error mail failure'})
                 // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@blurdybloop.com>
                 // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
             });

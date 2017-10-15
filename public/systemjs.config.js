@@ -28,7 +28,7 @@
       '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
       '@ng-bootstrap/ng-bootstrap': 'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
       '@angular/material':         'npm:@angular/material/bundles/material.umd.min.js',
-
+       /* CDK ANGULAR GOOGLE JAVASCRIPT */
       '@angular/cdk/platform':    'npm:@angular/cdk/bundles/cdk-platform.umd.js',
       '@angular/cdk/a11y':        'npm:@angular/cdk/bundles/cdk-a11y.umd.js',
       '@angular/cdk/coercion':        'npm:@angular/cdk/bundles/cdk-coercion.umd.js',

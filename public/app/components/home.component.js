@@ -26,7 +26,7 @@ var HomePageComponent = /** @class */ (function () {
         this.images = [];
         // contact us form variables
         this.location = { name: 'London, NY 10012, USA', color: 'primary' };
-        this.call = { name: '+444 84 515 544', color: 'accent' };
+        this.call = { name: '+447 490 40 6531', color: 'accent' };
         this.sendus = { name: 'info@technicalprb.com', color: 'warn' };
         this.myInterval = 3000;
         this.activeSlideIndex = 0;

@@ -96,7 +96,8 @@ export class ContactDialog implements OnInit {
             captcha: '',
             captchaKey: RECAPTCHA_SITE_KEY,
             validbut: true,
-            RespondError: 'check the captcha'
+            RespondError: 'check the captcha',
+            submited: false
         }
         this.cValidator = {
             patterName: '[a-zA-Z ]*',
@@ -125,45 +126,46 @@ export class ContactDialog implements OnInit {
 
     public onSubmit(): void {
 
+        this.captchaModel['validbut'] = false
+        this.captchaModel['submited'] = !this.captchaModel['validbut']
 
-        this.es.sendEmail(this.customer).subscribe( 
-            success => {
- 
+        this.es.sendEmail(this.customer).subscribe( success => {
+                
+
                 let ret = success
+                
 
-                if (ret && ret['info']) {
-                    console.log('success respond: ', JSON.stringify(ret))
-                    
+                if (ret && ret['info']) { // console.log('success respond: ', JSON.stringify(ret))
+
                     this.captchaModel['validbut'] = true, this.activeModal.close('Email')
-                    return
-                } else this.captchaModel['validbut'] = false
-
-                this.captchaModel['RespondError'] = 'Email Delivery Failure, try again'
-                this.ReCaptchaV2.reset()
-
-                setTimeout(() => {
-                    this.captchaModel['validbut'] = true
-                    this.captchaModel['RespondError']= 'check the captcha'
-                }, 3500)
-                console.log('error respond: ', JSON.stringify(ret))
-                return
+                }
+                
+                this.resetCaptchaModel(3500)
+                return //console.log('error respond: ', JSON.stringify(ret))
 
             }, error => {
 
                     this.captchaModel['validbut'] = false
-                    this.ReCaptchaV2.reset()
-
-                    setTimeout(() => {
-                        this.captchaModel['validbut'] = true
-                        this.captchaModel['RespondError']= 'check the captcha'
-                    }, 3500);
-                console.log(`TypeError: ${error}`, )
+                    
+                    this.resetCaptchaModel(3500)
+                    console.log(`TypeError: ${error}`, )
             })
 
     }
+    
+    private resetCaptchaModel(delay: number):void {
+        
+        this.captchaModel['RespondError'] = 'Email Delivery Failure, try again'
+        this.ReCaptchaV2.reset()
+        setTimeout(() => {
+            this.captchaModel['validbut'] = true
+            this.captchaModel['submited'] = false 
+            this.captchaModel['RespondError']= 'check the captcha'
+        }, delay)
+    }
 
     public onDismissed(): void {
-        
+
         this.activeModal.dismiss('Cross click')
     }
 

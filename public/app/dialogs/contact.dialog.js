@@ -30,7 +30,8 @@ var ContactDialog = /** @class */ (function () {
             captcha: '',
             captchaKey: RECAPTCHA_SITE_KEY,
             validbut: true,
-            RespondError: 'check the captcha'
+            RespondError: 'check the captcha',
+            submited: false
         };
         this.cValidator = {
             patterName: '[a-zA-Z ]*',
@@ -54,32 +55,30 @@ var ContactDialog = /** @class */ (function () {
     };
     ContactDialog.prototype.onSubmit = function () {
         var _this = this;
+        this.captchaModel['validbut'] = false;
+        this.captchaModel['submited'] = !this.captchaModel['validbut'];
         this.es.sendEmail(this.customer).subscribe(function (success) {
             var ret = success;
             if (ret && ret['info']) {
-                console.log('success respond: ', JSON.stringify(ret));
                 _this.captchaModel['validbut'] = true, _this.activeModal.close('Email');
-                return;
             }
-            else
-                _this.captchaModel['validbut'] = false;
-            _this.captchaModel['RespondError'] = 'Email Delivery Failure, try again';
-            _this.ReCaptchaV2.reset();
-            setTimeout(function () {
-                _this.captchaModel['validbut'] = true;
-                _this.captchaModel['RespondError'] = 'check the captcha';
-            }, 3500);
-            console.log('error respond: ', JSON.stringify(ret));
-            return;
+            _this.resetCaptchaModel(3500);
+            return; //console.log('error respond: ', JSON.stringify(ret))
         }, function (error) {
             _this.captchaModel['validbut'] = false;
-            _this.ReCaptchaV2.reset();
-            setTimeout(function () {
-                _this.captchaModel['validbut'] = true;
-                _this.captchaModel['RespondError'] = 'check the captcha';
-            }, 3500);
+            _this.resetCaptchaModel(3500);
             console.log("TypeError: " + error);
         });
+    };
+    ContactDialog.prototype.resetCaptchaModel = function (delay) {
+        var _this = this;
+        this.captchaModel['RespondError'] = 'Email Delivery Failure, try again';
+        this.ReCaptchaV2.reset();
+        setTimeout(function () {
+            _this.captchaModel['validbut'] = true;
+            _this.captchaModel['submited'] = false;
+            _this.captchaModel['RespondError'] = 'check the captcha';
+        }, delay);
     };
     ContactDialog.prototype.onDismissed = function () {
         this.activeModal.dismiss('Cross click');

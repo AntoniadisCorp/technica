@@ -41,7 +41,7 @@ export class HomePageComponent implements OnInit {
     
     // contact us form variables
     location = { name: 'London, NY 10012, USA', color: 'primary' }
-    call = { name: '+444 84 515 544', color: 'accent' }
+    call = { name: '+447 490 40 6531', color: 'accent' }
     sendus = { name: 'info@technicalprb.com', color: 'warn' }
 
     public myInterval: number = 3000;

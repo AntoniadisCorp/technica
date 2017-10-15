@@ -5,8 +5,8 @@
   "main": "bin/www",
   "scripts": {
     "start": "node index.js",
-    "dev": "node ./bin/www",
-    "production": "node build/bin/www"
+    "dev": "node ./bin/www_NoSSL",
+    "production": "node ../technicalprb/bin/www"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "passport-local": "^1.0.0",
     "pug": "^2.0.0-rc.4",
     "serve-favicon": "^2.4.4",
+    "session-mongoose": "^0.5.2",
     "socket.io": "^2.0.3"
   },
   "devDependencies": {
@@ -59,6 +60,7 @@
     "gulp-tslint": "^8.1.2",
     "gulp-typescript": "^3.2.2",
     "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
     "jshint": "^2.9.5",
     "merge2": "^1.2.0",
     "systemjs-builder": "^0.16.10",

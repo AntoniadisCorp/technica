@@ -11,7 +11,7 @@ var fss = require('fs')
 
 // Configuring Passport
 , passport = require('passport')
-, session = require('express-session')
+// , session = require('express-session')
 , sessionOptions = { secret: 'keyboard cat cat', 
     resave: true, 
     saveUninitialized: true,
@@ -65,15 +65,17 @@ app.use(bodyParser.urlencoded({limit: '2mb', extended: false}))
 // store session state in browser cookie, keep logged in user if exist from browser or server stopped
 var cookieSession = require('cookie-session');
 app.use(cookieSession({
-    keys: ['keyboard cat cat1', 'keyboard cat cat2']
+    keys: ['keyboard cat cat1', 'keyboard cat cat2'],
+    secret: 'tobo!',
+    cookie: { maxAge: 60 * 60 * 1000 },
 }))
 
 
 
-app.use(session(sessionOptions))
+// app.use(session(sessionOptions))
 
 app.use(passport.initialize())
-app.use(passport.session())
+// app.use(passport.session())
 
 
 

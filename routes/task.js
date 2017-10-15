@@ -51,7 +51,7 @@ function sendEmail(req, res, next) {
 
         let respond = fulfilled
 
-        console.log('fulfilled contact dialog: ', respond)
+        console.log('\n---> Task Node js contact service: ', respond)
         res.json(respond)
     })
 
