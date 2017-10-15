@@ -31,13 +31,7 @@ var fss = require('fs')
 , index = require('./routes')
 , tasks   = require('./routes/task');
 
-// becomes
-var env = process.env.NODE_ENV || 'production'
-if ('production' == env) {
 
-   // configure stuff here
-   PORT = process.env.PORT || PORT
-}
 
 
 // app.use(flash()); // use connect-flash for flash messages stored in session
@@ -85,8 +79,10 @@ app.use('/', index)
 app.use('/task', tasks)
 
 
-app.configure('production', function () {
-    app.use (function (req, res, next) {
+// becomes
+var env = process.env.NODE_ENV || 'production'
+if ('production' == env) {
+   app.use (function (req, res, next) {
       var schema = (req.headers['x-forwarded-proto'] || '').toLowerCase();
       if (schema === 'https') {
         next();
@@ -94,8 +90,9 @@ app.configure('production', function () {
         res.redirect('https://' + req.headers.host + req.url);
       }
     });
-  });
-
+   // configure stuff here
+   PORT = process.env.PORT || PORT
+}
 
 
 app.all('*',  (req, res, next) => {
