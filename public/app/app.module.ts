@@ -1,6 +1,7 @@
 /* Modules */
 import { NgModule, NO_ERRORS_SCHEMA }         from '@angular/core'
 import { BrowserModule }    from '@angular/platform-browser'
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { HttpModule }       from '@angular/http'
 import { ReactiveFormsModule, FormsModule }      from '@angular/forms'
 import { NgbModule }        from '@ng-bootstrap/ng-bootstrap'
@@ -14,8 +15,9 @@ import * as Hammer from 'hammerjs'
 // Routing Module
 import { RoutingModule }    from './app.routes'
 
-// Material Module and fonts
+// Material Module and fonts, Fontawesome
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
+
 import { MatRippleModule,
 MatButtonModule, MatCardModule,MatProgressSpinnerModule,
 MatCheckboxModule, MatChipsModule, MatDialogModule,MatGridListModule,MatInputModule,MatPaginatorModule,MatButtonToggleModule,
@@ -79,7 +81,7 @@ import { WhiteboxComponent, SanitizeHtml } from './directives/index'
         AgmCoreModule.forRoot({
           apiKey: 'AIzaSyDBzMhhrfwq7kbyqto_oHzR0vozXEZJHd0'
         }),
-        RecaptchaModule.forRoot(),
+        // RecaptchaModule.forRoot(),
         CommonModule,
         
         MDBBootstrapModule.forRoot()
@@ -123,7 +125,7 @@ import { WhiteboxComponent, SanitizeHtml } from './directives/index'
 
     {
       provide: RecaptchaLoaderService,
-      useValue: new PreloadedRecaptchaAPIService(),
+      useFactory: PreloadedRecaptchaAPIService,
     },
     //PetService
     // AuthGuard,

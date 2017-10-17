@@ -32,22 +32,24 @@
     <link rel="stylesheet" href="styles.css">
     
     <!-- <link rel="icon" href="https://localhost/favicon.ico?v=2" /> -->
+
     <!-- Polyfill(s) for older browsers -->
     <!-- <script src="/socket.io/socket.io.js"></script> -->
     <script src="node_modules/core-js/client/shim.min.js"></script>
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
-
+    
     <!-- <script src="gl1.js"></script>
     <script src="gl2.js"></script>  -->
-
+   
     <script src="systemjs.config.js"></script>
     <script>
        function onloadCallback() {
           System.import('app').catch( (err) => { console.error(err) })
        }
     </script>
+     <!-- <script src="aot/dist/build.js"></script> -->
   </head>
 
   <body >

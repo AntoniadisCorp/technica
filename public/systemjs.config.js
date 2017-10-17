@@ -4,6 +4,7 @@
  */
 (function (global) {
   System.config({
+
     paths: {
       // paths serve as alias
       'npm:': 'node_modules/'
@@ -44,14 +45,15 @@
       '@angular/cdk/portal':        'npm:@angular/cdk/bundles/cdk-portal.umd.js',
       
       '@agm/core':                 'npm:@agm/core/core.umd.js',
-      'angular-bootstrap-md':      'npm:angular-bootstrap-md/bundles/angular-bootstrap-md.umd.min.js',
+      'angular-bootstrap-md':      'npm:angular-bootstrap-md/bundles/angular-bootstrap-md.umd.min.js', // 
       
        // other libraries
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
       'angular2-fontawesome':      'npm:angular2-fontawesome',
-      'hammerjs':                  'npm:hammerjs/hammer.min.js',
-      'ng2-recaptcha':             'npm:ng2-recaptcha'
+      'hammerjs':                  'npm:@types/hammerjs',
+      'ng2-recaptcha':             'npm:ng2-recaptcha',
+
       // further angular bundles
     },
     // packages tells the System loader how to load when no filename and/or no extension
@@ -67,12 +69,13 @@
         main: './index.js',
         defaultExtension: 'js'
       },
-      'angular2-fontawesome': { 
+      'angular2-fontawesome': {
         defaultExtension: 'js'
       },
       'ng2-recaptcha': {
         defaultExtension: 'js'
       }
+
     }
-  });
+    });
 })(this);

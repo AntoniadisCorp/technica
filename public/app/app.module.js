@@ -17,7 +17,7 @@ var common_1 = require("@angular/common");
 var angular_bootstrap_md_1 = require("angular-bootstrap-md");
 // Routing Module
 var app_routes_1 = require("./app.routes");
-// Material Module and fonts
+// Material Module and fonts, Fontawesome
 var angular2_fontawesome_1 = require("angular2-fontawesome/angular2-fontawesome");
 var material_1 = require("@angular/material");
 // import { PlatformModule } from '@angular/cdk/platform'
@@ -60,7 +60,7 @@ var AppModule = /** @class */ (function () {
                 core_2.AgmCoreModule.forRoot({
                     apiKey: 'AIzaSyDBzMhhrfwq7kbyqto_oHzR0vozXEZJHd0'
                 }),
-                ng2_recaptcha_1.RecaptchaModule.forRoot(),
+                // RecaptchaModule.forRoot(),
                 common_1.CommonModule,
                 angular_bootstrap_md_1.MDBBootstrapModule.forRoot()
             ],
@@ -98,7 +98,7 @@ var AppModule = /** @class */ (function () {
             providers: [
                 {
                     provide: ng2_recaptcha_1.RecaptchaLoaderService,
-                    useValue: new index_2.PreloadedRecaptchaAPIService(),
+                    useFactory: index_2.PreloadedRecaptchaAPIService,
                 },
                 //PetService
                 // AuthGuard,

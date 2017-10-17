@@ -30,7 +30,7 @@ export class Scrollspy {
     
    
     
-    smoothScroll(eID) {
+    smoothScroll(eID: string) {
 
 
 		var startY = this.currentYPosition();
@@ -70,7 +70,7 @@ export class Scrollspy {
         return 0;
     }
 
-    elmYPosition(eID) {
+    elmYPosition(eID: string) {
         var elm = document.getElementById(eID);
         var y = elm.offsetTop;
         var node = elm;

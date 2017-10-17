@@ -91,7 +91,7 @@
                    
                 
                 </mat-chip-list>
-                                        <a style="color:#ff4081" class="mat-chip mat-primary" href="tel:{{call.name}}"> <i class="fa fa-phone light-green-text fa-lg"></i>  +444 84 515544
+                                        <a style="color:#ff4081" class="mat-chip mat-primary" [attr.href]="'tel:'+call.name"> <i class="fa fa-phone light-green-text fa-lg"></i>  {{call.name}}
                                         </a>
                 
                         </span>

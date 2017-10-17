@@ -32,6 +32,14 @@ var fss = require('fs')
 , tasks   = require('./routes/task');
 
 
+// becomes
+var env = process.env.NODE_ENV || 'production'
+if ('production' == env) {
+
+   // configure stuff here
+   PORT = process.env.PORT || PORT
+}
+
 
 
 // app.use(flash()); // use connect-flash for flash messages stored in session
@@ -40,8 +48,8 @@ var fss = require('fs')
 
 // View Engine
 app.use(favicon(fpath.join(__dirname + '/public/favicon.ico')))
-app.set('views', express.static(fpath.join(__dirname + '/public/views')))
 
+app.set('views', express.static(fpath.join(__dirname + '/public/views')))
 //app.use('/scripts', express.static(fpath.join(__dirname + '/public/node_modules')))
 app.set('view engine', 'ejs')
 
@@ -79,26 +87,19 @@ app.use('/', index)
 app.use('/task', tasks)
 
 
-// becomes
-var env = process.env.NODE_ENV || 'production'
-if ('production' == env) {
-   app.use (function (req, res, next) {
-      var schema = (req.headers['x-forwarded-proto'] || '').toLowerCase();
-      if (schema === 'https') {
-        next();
-      } else {
-        res.redirect('https://' + req.headers.host + req.url);
-      }
-    });
-   // configure stuff here
-   PORT = process.env.PORT || PORT
-}
 
 
 app.all('*',  (req, res, next) => {
 
-    // Use res.sendFile, as it streams instead of reading the file into memory.
-    res.sendFile(fpath.join(__dirname + '/public/views/index.html'))
+    var schema = (req.headers['x-forwarded-proto'] || '').toLowerCase();
+    schema = 'https'
+
+    if (schema === 'https') {
+      // Use res.sendFile, as it streams instead of reading the file into memory.
+        res.sendFile(fpath.join(__dirname + '/public/views/index.html'))
+    } else {
+      res.redirect('https://' + req.headers.host + req.url);
+    }
 // console.log(new Date()+' '+ 
 //         req.connection.remoteAddress+' '+ 
 //         req.socket.getPeerCertificate().subject.CN+' '+ 

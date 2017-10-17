@@ -23,7 +23,7 @@ export class EventsService {
             });
     }
 
-    on(name, listener) {
+    on(name:any, listener:any) {
         
         if (!this.listeners[name]) {
             this.listeners[name] = []
@@ -32,7 +32,7 @@ export class EventsService {
         this.listeners[name].push(listener);
     }
 
-    broadcast(name, ...args) {
+    broadcast(name:any, ...args: any[]) {
         this.eventsSubject.next({
             name,
             args

@@ -1,0 +1,13 @@
+<div class="container">
+    <!--Blog-->
+    <div class="row">
+
+        <nav class="col-lg-12 breadcrumb">
+        <a class="breadcrumb-item"  [routerLink]="['/']" ><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+        <a class="breadcrumb-item active" [routerLink]="['/Privacy']" >Privacy Policy</a>
+        </nav>
+        <whitebox [setHtml]="PrivacyArticle.article"></whitebox>
+
+        
+    </div>
+</div>

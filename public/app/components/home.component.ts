@@ -6,6 +6,15 @@ import { Scrollspy }      from '../classes/index'
 import { isEmpty } from '../routines/index'
 import { DOCUMENT } from '@angular/platform-browser'
 import { MatSnackBar } from '@angular/material'
+import { EventsService } from '../services/index'
+
+interface GetEventTarget extends EventTarget {
+    innerWidth: number
+}
+
+interface SetEvent extends Event {
+    target: GetEventTarget;
+}
 
 
 @Component({
@@ -59,7 +68,7 @@ export class HomePageComponent implements OnInit {
 
     @ViewChild('t') public tooltip: NgbTooltip;
     
-    constructor(private modalService: NgbModal, private snack: MatSnackBar) {
+    constructor(private modalService: NgbModal, private snack: MatSnackBar, private eS: EventsService) {
 
         // initialize WindowRef
         this.win = new Scrollspy()
@@ -194,7 +203,7 @@ export class HomePageComponent implements OnInit {
 
        /* run mapper options */ 
        this.init_map()
-       
+       this.eS.broadcast('navBar', this.call.name)  
        this.SwitchSlider(window.screen.width, 700)
     }
 
@@ -214,19 +223,19 @@ export class HomePageComponent implements OnInit {
       }
 
     @HostListener('window:resize', ['$event'])
-    onResize(event) {
+    onResize(event: SetEvent) {
       
         this.SwitchSlider(event.target.innerWidth, 700)      
     }
 
     @HostListener('window:scroll', ['$event'])
-    onWindowScroll(event) {
+    onWindowScroll(event: Event) {
         
         if (this.greetEnable)
             this.changeGreeting({greeting: 'Contact us'}), this.greetEnable = !this.greetEnable
     }
 
-    public isEmpty (obj): boolean { return isEmpty(obj) } 
+    public isEmpty (obj: Object): boolean { return isEmpty(obj) } 
 
     private SwitchSlider(screen: number, maxlimit: number): void {
 
@@ -250,7 +259,7 @@ export class HomePageComponent implements OnInit {
     //    console.log(this.slides.length)
     }
 
-    private openModal(content): void {
+    private openModal(content: any): void {
 
         this.modalService.open(content).result.then( result => {
             this.closeResult = `Closed with: ${result}`
@@ -304,7 +313,7 @@ export class HomePageComponent implements OnInit {
         // modalRef.componentInstance.name = 'World';
     }
 
-    public OpenImageModel(imageSrc, images, i): void {
+    public OpenImageModel(imageSrc: Object, images:Array <Object>, i: number): void {
 
         this.imagePointer  = i;
         // console.log(`imageModalPointer: ${imageSrc.img}, ${images[i].img}, ${i+1}`);

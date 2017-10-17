@@ -9,8 +9,8 @@ import { EventsService } from '../services/index'
 })
 export class ScrollSpyDirective implements AfterViewInit {
 
-  private elements = [];
-  private currentActiveLink;
+  private elements: Array<any> = [];
+  private currentActiveLink: boolean
   private directNavigation: boolean = false;
 
   // Window properties, like Scrollspy
@@ -39,7 +39,7 @@ export class ScrollSpyDirective implements AfterViewInit {
     for (let i = 0; i < elements.length; i++) {
       let elem = elements.item(i);
 
-      let id = this.getId(elem);
+      let id = this.getId(elem)
       // console.log(`collecting ids: ${JSON.stringify(id)}`)
 
       if (!id)
@@ -87,7 +87,7 @@ export class ScrollSpyDirective implements AfterViewInit {
     this.directNavigation = false;
   }
 
-  private _getPeerElement(id) {
+  private _getPeerElement(id:any) {
 
     let destination = this.document.getElementById(id)
 
@@ -96,7 +96,7 @@ export class ScrollSpyDirective implements AfterViewInit {
     return destination;
   }
 
-  private getId(elem) {
+  private getId(elem: any) {
 
     let href = elem.getAttribute('ref');
 
@@ -110,12 +110,7 @@ export class ScrollSpyDirective implements AfterViewInit {
   @HostListener("window:scroll", ['$event'])
   onWindowScroll(event: Event) {
 
-    // events broadcast service
-    /* this.eventsService.on('WindowScroll', a => {
-
-      this.directNavigation = !a
-      // console.log('a: ', !a)
-    }) */
+   
 
     // console.log('directNavigation: ', this.directNavigation)
 
@@ -146,7 +141,7 @@ export class ScrollSpyDirective implements AfterViewInit {
     this.renderer.removeClass(this.currentActiveLink, 'active');
   }
 
-  private _setCurrentLink(elem) {
+  private _setCurrentLink(elem: any) {
 
     this.currentActiveLink = elem;
 

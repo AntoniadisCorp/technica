@@ -2,11 +2,14 @@
   "name": "technicalprb",
   "version": "1.0.0",
   "description": "Technical Plumbing Support Team",
-  "main": "bin/www",
+  "main": "bin/www_NoSSL",
   "scripts": {
     "start": "node index.js",
     "dev": "node ./bin/www_NoSSL",
-    "production": "node ../technicalprb/bin/www"
+    "production": "node ../technicalprb/bin/www",
+    "watch": "webpack --watch",
+    "build:ngc": "./public/node_modules/.bin/ngc -p ./public/tsconfig.json",
+    "build:aot": "./public/node_modules/.bin/ngc -p ./public/tsconfig-aot.json && ./public/node_modules/.bin/rollup -c ./public/rollup-config.js"
   },
   "repository": {
     "type": "git",
@@ -67,7 +70,11 @@
     "tslint": "^5.7.0",
     "typescript": "^2.5.2",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "webpack": "^3.7.1"
+  },
+  "babel": {
+    "presets": ["es2015"]
   },
   "keywords": []
 }

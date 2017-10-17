@@ -5,11 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 
-
-
-
 @Injectable()
-
 export class PreloadedRecaptchaAPIService {
  public ready: Observable<ReCaptchaV2.ReCaptcha>;
 

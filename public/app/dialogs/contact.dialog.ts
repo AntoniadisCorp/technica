@@ -9,6 +9,32 @@ const RECAPTCHA_SITE_KEY = '6Ld52ywUAAAAABBVB1obaeIl6CmWi7BidW1uQb4t'
 const TextmaxLength:  number = 1000
 
 
+interface Captcha {
+
+    captcha?: string,
+    captchaKey?: string,
+    validbut?: boolean,
+    RespondError?: string,
+    submited?: boolean
+}
+
+interface Customer {
+
+    name?: string,
+    email?: string,
+    subject?: string,
+    message?: string
+}
+
+interface Validator {
+    
+    patterName?: string,
+    patterEmail?: string,
+    patterSubject?: string,
+    patterText?: string,
+    TextmaxLength?: number
+}
+
 @Component({
     selector: 'contactus',
     templateUrl: '../../views/main_partials/contact.ejs',
@@ -72,11 +98,11 @@ const TextmaxLength:  number = 1000
 export class ContactDialog implements OnInit {
 
     
-    public captchaModel: Object
+    public captchaModel: Captcha
 
-    public customer: Object
+    public customer: Customer
     
-    public cValidator: Object
+    public cValidator: Validator
 
     public angForm: FormGroup
 
@@ -113,6 +139,7 @@ export class ContactDialog implements OnInit {
             subject: '',
             message: ''
         }
+
         
     }
 
@@ -173,7 +200,7 @@ export class ContactDialog implements OnInit {
      * onTextChange
      * @param event
      */
-    public onChange(event): void {
+    public onChange(event: any): void {
 
         this.captchaModel['validbut'] = true
     }

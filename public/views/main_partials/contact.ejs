@@ -115,12 +115,13 @@
                        
                           <recaptcha style="float: right;" (resolved)="resolved($event)"
                         [(ngModel)]="captchaModel.captcha"
-                        required #captcha="ngModel" (change)="captchablur($event)" name="captcha" siteKey="{{captchaModel.captchaKey}}"></recaptcha>
+                        required #captcha="ngModel"  name="captcha" siteKey="{{captchaModel.captchaKey}}"></recaptcha>
                          <mat-spinner *ngIf="this.captchaModel['submited']" mode="indeterminate" style="position: relative; bottom: -12px;right: -112px;" 
                          id="spinner" diameter="30" value="50"  color="warn" [strokeWidth]="2"></mat-spinner>
                         <div class="chip" [hidden]="captcha.valid || captchaModel.RespondError !== 'Email Delivery Failure, try again'"><mat-icon class="mat-18">error</mat-icon>{{captchaModel.RespondError}}</div>
                
                 </div>
+                <!-- (change)="captchablur($event)" -->
                 <!-- name="captcha"-->
             </form>
         </div>

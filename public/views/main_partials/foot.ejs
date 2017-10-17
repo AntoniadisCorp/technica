@@ -64,8 +64,27 @@
         <div class="row">
             <!--First column-->
             <div class="col-md-3 offset-md-1 wow animated fadeIn" data-wow-delay="0.6s">
-                <h5 class="title">Footer Content </h5>
-                <p>Here you can use rows and columns here to organize your footer content.</p>
+                <h5 class="title"><span style="font-size: 6%;" class="badge badge-primary badge-pill"><mat-icon class="mat-18">link</mat-icon></span> WHAT WE DO </h5>
+               
+                    <ul style="list-style-type: initial;" class="list-group">
+                        <li class="">
+                            <!-- <i  style="font-size: 85%;" class="mat-18 material-icons">hearing</i> -->
+                            All kinds of plumbing works are 
+                            undertaken by qualified and licensed 
+                            plumbers throughout London.
+                        </li>
+                        <li class="">
+                            <!-- <i  style="font-size: 85%;" class="mat-18 material-icons">hearing</i> -->
+                            We give solution in your needs at water and heating sector.
+                        </li>
+                        <li class="">
+                            <!-- <i  style="font-size: 85%;" class="mat-18 material-icons">hearing</i> -->
+                            Our goal is to serve you direct.
+                        </li>
+                        <li>
+                            For further information please <a style="text-decoration: underline;" (click)="routerLink('contact')" >contact</a> us.
+                        </li>
+                    </ul>
             </div>
             <!--/.First column-->
 
@@ -108,8 +127,8 @@
     <!--Copyright-->
     <div class="footer-copyright" data-wow-delay="0.6s">
         <div class="container-fluid">
-                <i class="fa fa-copyright" aria-hidden="true"></i> 2017 Copyright: <a routerLink='.'> Technicalprb.com Ltd.</a>
-                <a routerLink='/privacy'>Privacy Policy</a>
+                <i class="fa fa-copyright" aria-hidden="true"></i> 2017 Copyright: <a (click)="routerLink('/')" > Technicalprb.com Ltd.</a> | 
+                <a (click)="routerLink('Privacy')">Privacy Policy</a>
         </div>
     </div>
     <!--/.Copyright-->

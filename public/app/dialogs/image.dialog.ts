@@ -121,7 +121,7 @@ export class ImageDialog implements OnInit {
  
    }
    
-   openGallery(index) {
+   openGallery(index:number) {
      if(!index) { this.currentImageIndex = 1;}
 
      this.currentImageIndex = index;

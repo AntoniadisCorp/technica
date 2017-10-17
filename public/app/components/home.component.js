@@ -16,11 +16,13 @@ var index_2 = require("../variables/index");
 var index_3 = require("../classes/index");
 var index_4 = require("../routines/index");
 var material_1 = require("@angular/material");
+var index_5 = require("../services/index");
 var HomePageComponent = /** @class */ (function () {
-    function HomePageComponent(modalService, snack) {
+    function HomePageComponent(modalService, snack, eS) {
         var _this = this;
         this.modalService = modalService;
         this.snack = snack;
+        this.eS = eS;
         // Image Modal Window Variables
         this.openModalWindow = false;
         this.images = [];
@@ -64,6 +66,7 @@ var HomePageComponent = /** @class */ (function () {
         //Add 'implements OnInit' to the class.
         /* run mapper options */
         this.init_map();
+        this.eS.broadcast('navBar', this.call.name);
         this.SwitchSlider(window.screen.width, 700);
     };
     HomePageComponent.prototype.closeGreeting = function () {
@@ -167,7 +170,7 @@ var HomePageComponent = /** @class */ (function () {
     __decorate([
         core_1.HostListener('window:scroll', ['$event']),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object]),
+        __metadata("design:paramtypes", [Event]),
         __metadata("design:returntype", void 0)
     ], HomePageComponent.prototype, "onWindowScroll", null);
     HomePageComponent = __decorate([
@@ -176,7 +179,7 @@ var HomePageComponent = /** @class */ (function () {
             templateUrl: '../../views/main_partials/home.ejs',
             styleUrls: ['../../styles/home.css']
         }),
-        __metadata("design:paramtypes", [ng_bootstrap_1.NgbModal, material_1.MatSnackBar])
+        __metadata("design:paramtypes", [ng_bootstrap_1.NgbModal, material_1.MatSnackBar, index_5.EventsService])
     ], HomePageComponent);
     return HomePageComponent;
 }());

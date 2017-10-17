@@ -82,12 +82,6 @@ var ScrollSpyDirective = /** @class */ (function () {
         return href.replace('#', '');
     };
     ScrollSpyDirective.prototype.onWindowScroll = function (event) {
-        // events broadcast service
-        /* this.eventsService.on('WindowScroll', a => {
-    
-          this.directNavigation = !a
-          // console.log('a: ', !a)
-        }) */
         // console.log('directNavigation: ', this.directNavigation)
         if (this.directNavigation)
             return;

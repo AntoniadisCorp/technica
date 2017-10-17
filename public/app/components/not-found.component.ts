@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component }        from '@angular/core'
+import { EventsService }    from '../services/index'
 
 @Component({
 
@@ -15,8 +16,8 @@ import { Component } from '@angular/core';
                             Sorry, an error has occured, Requested page not found!
                         </div>
                         <div class="error-actions">
-                            <a href="http://www.jquery2dotnet.com" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
-                                Take Me Home </a><a href="http://www.jquery2dotnet.com" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
+                            <a (click)="goHome()" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                                Take Me Home </a><a (click)="goContact()" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Us </a>
                         </div>
                     </div>
                 </div>
@@ -28,4 +29,17 @@ import { Component } from '@angular/core';
 .error-actions .btn { margin-right:10px; }`]
 
 })
-export class PageNotFoundComponent {}
+export class PageNotFoundComponent {
+
+    constructor(private eS: EventsService) {}
+
+    public goHome() {
+
+        this.eS.broadcast('routerLink', '/')
+    }
+    public goContact() {
+
+        this.eS.broadcast('routerLink','contact')
+    }
+
+}

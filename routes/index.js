@@ -7,7 +7,7 @@ var express = require('express')
  * https Router Gets
  */
 
- router.get('/login', LoginPageCheck) // get login
+//  router.get('/login', LoginPageCheck) // get login
 
 /**
  * https Router Posts
