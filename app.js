@@ -47,16 +47,20 @@ if ('production' == env) {
 
 
 // View Engine
-app.use(favicon(fpath.join(__dirname + '/public/favicon.ico')))
+app.use(favicon(fpath.join(__dirname + '/public/dist/favicon.ico')))
 
-app.set('views', express.static(fpath.join(__dirname + '/public/views')))
+// Set Static Folder dist production
+app.use(express.static(fpath.join(__dirname + '/public/dist')))
+
+app.set('views', express.static(fpath.join(__dirname + '/public/src/views')))
 //app.use('/scripts', express.static(fpath.join(__dirname + '/public/node_modules')))
 app.set('view engine', 'ejs')
 
 app.engine('html', require('ejs').renderFile)
 
-// Set Static Folder
-app.use(express.static(fpath.join(__dirname + '/public')))
+
+// Set Static Folder Components
+app.use(express.static(fpath.join(__dirname + '/public/components')))
 // cookieParser
 app.use(cookieParser())
 // Body Parser MW
@@ -75,7 +79,6 @@ app.use(cookieSession({
 
 
 // app.use(session(sessionOptions))
-
 app.use(passport.initialize())
 // app.use(passport.session())
 
@@ -87,31 +90,31 @@ app.use('/', index)
 app.use('/task', tasks)
 
 
-
-
 app.all('*',  (req, res, next) => {
 
     var schema = (req.headers['x-forwarded-proto'] || '').toLowerCase();
+
     schema = 'https'
 
-    if (schema === 'https') {
-      // Use res.sendFile, as it streams instead of reading the file into memory.
-        res.sendFile(fpath.join(__dirname + '/public/views/index.html'))
+    if (schema != "https") {
+
+        res.set('x-forwarded-proto', 'https');
+        res.redirect('https://' + req.get('host') + req.url);
+
     } else {
-      res.redirect('https://' + req.headers.host + req.url);
+        // Use res.sendFile, as it streams instead of reading the file into memory.
+        res.sendFile(fpath.join(__dirname + '/public/dist/ind.html'))
     }
-// console.log(new Date()+' '+ 
-//         req.connection.remoteAddress+' '+ 
-//         req.socket.getPeerCertificate().subject.CN+' '+ 
-//         req.method+' '+req.url); 
-    // res.writeHead(200); 
-    // res.end("hello world\n"); 
     // Cookies that have not been signed
-    // console.log('Cookies: ', req.cookies)
+    console.log('----> New User connected ' + `https://${req.headers.host}${req.url}`)
+
+    console.log('DATE: ' + new Date()+' '+req.connection.remoteAddress +' '+req.method+' '+req.url+' '); 
+    // Cookies that have not been signed
+    console.log('Cookies: ', req.cookies)
 
     // Cookies that have been signed
-    // console.log('Signed Cookies: ', req.signedCookies)
-    // console.log('session Cookies: ', req.session)
+    console.log('Signed Cookies: ', req.signedCookies)
+    console.log('session Cookies: ', req.session)
 
     
 })

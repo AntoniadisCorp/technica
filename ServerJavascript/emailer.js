@@ -2,8 +2,8 @@
 const nodemailer = require('nodemailer')
 const path = require('path')
 const acc = {
-    user: 'info@carwatcher.org',
-    host: 'carwatcher.org',
+    user: 'info@technicalprb.com',
+    host: 'uk3.fcomet.com',
     pass: 'For(Life!=0)',
     port: 25,
     secure: true
@@ -19,10 +19,8 @@ class Emailer {
             user:	acc.user, 
             password: acc.pass, 
             host: acc.host,
-            port: 25,
-            // _secure: acc.secure,
-            
-            ssl: true
+            port: acc.port,
+            _secure: acc.secure,
         });
      
     }
@@ -42,7 +40,7 @@ class Emailer {
             ] */
         }
 
-        message
+        
         // send the message and get a callback with an error or details of the message that was sent
         this.server.send(message, (err, message) => { 
             let out = err || message
@@ -61,21 +59,25 @@ class Emailer {
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
                 host: acc.host,
-                port: 25,
-                pool: true,
-                secure: true, // true for 465, false for other ports
-                // requireTLS: true,
+                port: 465,
+                // pool: true,
+                secure: acc.secure, // true for 465, false for other ports
+                requireTLS: true,
                 auth: {
                     user: acc.user, // generated ethereal user
                     pass: acc.pass  // generated ethereal password
+                },
+                tls: {
+                    // do not fail on invalid certs
+                    rejectUnauthorized: false
                 }
             });
-        
+
             // setup email data with unicode symbols
             let mailOptions = {
                 from: `"${emailContainer.name}. 👻" <${emailContainer.email}>`, // sender address
                 to: acc.user, // list of receivers , prokopis123@gmail.com
-                subject: `${emailContainer.subject} ✔`, // Subject line
+                subject: `${emailContainer.subject} ✔ Page Form`, // Subject line
                 text: `${emailContainer.message}`, // plain text body
                 html: `<b>${emailContainer.message}</b>` // html body
             };
@@ -83,12 +85,12 @@ class Emailer {
             // send mail with defined transport object
             transporter.sendMail(mailOptions, (error, info) => {
                 
-                
+
                 console.log('Message sent: %s', info&&info.messageId? info.messageId : error);
                 // Preview only available when sending through an Ethereal account
                 if (!error)
-                    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-                // this.emailjs(mailOptions)
+                    // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                
                 callback (info&&info.messageId? info : {error: 'error mail failure'})
                 // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@blurdybloop.com>
                 // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
@@ -101,14 +103,14 @@ class Emailer {
         this.send(email, res => {
 
             let respond = res
-            if (respond && respond.info) {
+            if (respond && respond.messageId) {
                 // fulfilled
+                callback({info:respond.messageId})
             } else {
                 let rejected = new Error( 'Message could not sent ');
                 console.log(rejected)
                 callback({error: rejected})
-            } console.log(`resss: `, respond)
-            callback(res)
+            } console.log(`contactPromise: `, respond)
         })
         
        

@@ -329,16 +329,19 @@ var tsResult = gulp.src(['./public/app/**/*.ts',
 
 
 // Generate systemjs-based bundle (app/app.js)
-gulp.task('bundle:app', function() {
-	var builder = new systemjsBuilder('./public', './public/systemjs.config.js');
-	return builder.buildStatic('./public/app', 'public/app/ang4.js');
+gulp.task('prod:app', ['bower_scripts'], function() {
+	/* var builder = new systemjsBuilder('./public', './public/systemjs.config.js');
+	return builder.buildStatic('./public/app', 'public/app/ang4.js'); */
+	gulp.src(['./public/dist/**/**/**/**/*']).pipe(gulp.dest('../TechnicalPRB/public/dist/'));
 });
+
+
 
 /*****************************************************
 * Copy Bower (front end) javascript libraries
 *		RUN : gulp bower_scripts
 ******************************************************/
-gulp.task('bower_scripts', ['bundle:app'], function() {
+gulp.task('bower_scripts', function() { //bundle:app
 	/*   gulp.src([
   			// Angular script
 				'./public/app/ang4.js'
@@ -355,11 +358,11 @@ gulp.task('bower_scripts', ['bundle:app'], function() {
 	.pipe(gulp.dest('../TechnicalPRB/public/')); // Put resulting file also in the build folder */
 
 	// This file is not minimized. Minimize it and later add the minimized version to the gl2.js
-	gulp.src(['./public/app/ang4.js'])
-	.pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
-    .pipe(concat('ang.min.js'))
-	// .pipe(gulp.dest('./public/app'))		// Put resulting file in the development folder
-	.pipe(gulp.dest('../TechnicalPRB/public/app'));		// Put resulting file in the development folder
+	// gulp.src(['./public/app/ang4.js'])
+	// .pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
+    // .pipe(concat('ang.min.js'))
+	// // .pipe(gulp.dest('./public/app'))		// Put resulting file in the development folder
+	// .pipe(gulp.dest('../TechnicalPRB/public/app'));		// Put resulting file in the development folder
 
 	// // This file is not minimized. Minimize it and later add the minimized version to the gl2.js
 	// gulp.src(['./public/systemjs.conifg.js'])
@@ -378,6 +381,7 @@ gulp.task('bower_scripts', ['bundle:app'], function() {
 	gulp.src(['./public/components/jquery/dist/jquery.min.js',
 			  './public/components/popper.js/dist/umd/popper.min.js',
 			//   './public/components/popper.min.js.map',
+			  './public/components/tether/dist/js/tether.min.js',
 			  './public/components/bootstrap/dist/js/bootstrap.min.js',
 			  './public/components/wow/dist/wow.min.js',
 			// './public/components/material-design-lite/material.min.js',
@@ -389,8 +393,8 @@ gulp.task('bower_scripts', ['bundle:app'], function() {
 			// './public/components/remarkable-bootstrap-notify/bootstrap-notify-3.1.3/bootstrap-notify.min.js'
 			])
     .pipe(concat('gl1.js'))
-    .pipe(gulp.dest('./public/'))		// Put resulting file in the development folder
-    .pipe(gulp.dest('../TechnicalPRB/public/')); // Put resulting file also in the build folder
+    .pipe(gulp.dest('./public/dist'))		// Put resulting file in the development folder
+    .pipe(gulp.dest('../TechnicalPRB/public/dist')); // Put resulting file also in the build folder
 	
 	
   	// Second general library
@@ -404,7 +408,7 @@ gulp.task('bower_scripts', ['bundle:app'], function() {
 			// './public/node_modules/reflect-metadata/Reflect.js',
 			// './public/node_modules/systemjs/dist/system.src.js',
 			// './public/node_modules/systemjs/dist/system-polyfills.js',
-			'./public/systemjs.config.js',
+			// './public/systemjs.config.js',
 			])
 	.pipe(concat('gl2.js'))
 	.pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
@@ -604,26 +608,6 @@ gulp.task('lint', function() {
 			])
     .pipe(jshint({ esnext : true}))
     .pipe(jshint.reporter('default'));
-
-
-
-
-
-
-	// gulp.src(['./public/app_JS/app.js',
-	// 		'./public/app_JS/Controllers/*.js',
-	// 		'./public/app_JS/Filters/GridFilters.js',
-	// 		'./public/app_JS/Services/*.js',
-
-	// 		'./public/app_JS/Directives/*.js',
-	// 		'./public/app_JS/Factories/*.js',
-
-	// 		'./public/app_JS/wt520_lib.js'
-	// 		])
-  	// //.pipe(concat('l1.js'))
-    // .pipe(jshint({ esnext : true}))
-    // .pipe(jshint.reporter('default'));
-
 });
 
 
@@ -961,12 +945,12 @@ gulp.task('default',[	'copy_root',
 						'copy_bin',
 						'routes',
 						'views',
-						'copy_nodemodules',
+						// 'copy_nodemodules',
 						'bower_scripts',
 						'appjs_other',
 						'config_files',
 						'ServerJavascript',
-						'styles',
+						// 'styles',
 						'displayBuildMessage'
 					], function() {}
 );
