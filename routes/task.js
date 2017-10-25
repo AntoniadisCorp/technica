@@ -1,5 +1,6 @@
 var express = require('express')
 , router = express.Router()
+, device = require('express-device')
 , mongo  = require('mongojs')
 , db = mongo('mongodb://ucrabeksjkigvz9:lijaIRixg4xgEZrBMPKj@brghyzdzarocacc-mongodb.services.clever-cloud.com:27017/brghyzdzarocacc',
  [], { ssl: true })
@@ -7,6 +8,8 @@ var express = require('express')
 , auth = (req, res, next) => {
     return next() 
 } // withou auth
+, GBRoutines = require('../ServerJavascript/GlobalRoutines')
+, machineId = require('machine-id')
 
 db.on('error', function (err) {
     console.log('database error', err)
@@ -15,6 +18,8 @@ db.on('error', function (err) {
 db.on('connect', function () {
     console.log('database connected')
 })
+
+router.use(device.capture())
 
 // Angular Routes
 
@@ -75,6 +80,7 @@ function sendEmail(req, res, next) {
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
+ * @returns {*} res Json
  */
 function subscribe(req, res, next) {
     
@@ -84,10 +90,11 @@ function subscribe(req, res, next) {
 
         newdate = date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1) + '-' + date.getUTCDate() + ' '
             + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds()
-        console.log('Subscribe: ', Subscriber)
+
+        userSession = GBRoutines.getUserSession(req, machineId())
     
-    
-        // find a document using a native ObjectId
+    // console.log('Subscribe: ', Subscriber)
+    // find a document using a native ObjectId
     SubCollection.findOne({
         email: Subscriber.email
     }, (err, doc) => {
@@ -95,7 +102,7 @@ function subscribe(req, res, next) {
         if (err)
             res.json({error: 'Response Error Subscribe Email', errorCode: 0x3})
         if (!doc)
-            SubCollection.save({email: Subscriber.email, DateCreated: date, valid: true, used: false })
+            SubCollection.save({email: Subscriber.email, DateCreated: date, valid: true, used: false, userSession })
         
             res.json({success: 'Email subscribed', successCode: 0x3})
     })

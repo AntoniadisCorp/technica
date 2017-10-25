@@ -9,17 +9,13 @@ var fss = require('fs')
 , cookieSession = require('cookie-session')
 , cookieParser = require('cookie-parser')
 , bodyParser = require('body-parser')
+, GBRoutines = require('./ServerJavascript/GlobalRoutines')
 // , flash    = require('connect-flash')
 
 // Configuring Passport
 , passport = require('passport')
 // , session = require('express-session')
-, sessionOptions = { secret: 'keyboard cat cat', 
-    resave: true, 
-    saveUninitialized: true,
-    cookie: { secure: true, httpOnly: true }
-}
-
+, sessionOptions = {}
 , PORT = 3000
 // , HOST = 'localhost' //prokopis.hopto.org
 , passport = require('passport')
@@ -42,7 +38,17 @@ if ('production' == env) {
    PORT = process.env.PORT || PORT
 }
 
-
+// have a uniqueId
+sessionOptions = { secret: GBRoutines.generateUUID('timestamp'), 
+    resave: true, 
+    saveUninitialized: true,
+    cookie: { secure: true },
+    cookieName: '__UD',
+    duration: 30 * 60 * 1000,
+    activeDuration: 5 * 60 * 1000,
+    secure: true,
+    ephemeral: true
+}
 
 // app.use(flash()); // use connect-flash for flash messages stored in session
 

@@ -230,6 +230,7 @@ gulp.task('ServerJavascript', function() {
 				// './ServerJavascript/FTPSystemSetupManager.js',
 				'./ServerJavascript/socket.io.js',
 				'./ServerJavascript/emailer.js',
+				'./ServerJavascript/GlobalRoutines.js',
 				// './ServerJavascript/settings.js',
 
 				// './ServerJavascript/Slave_NONE.js',
