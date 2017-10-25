@@ -5,6 +5,8 @@ var fss = require('fs')
 , fpath = require('path')
 , httpsecurity = require('https')
 , socket_io = require('socket.io')
+// store session state in browser cookie, keep logged in user if exist from browser or server stopped
+, cookieSession = require('cookie-session')
 , cookieParser = require('cookie-parser')
 , bodyParser = require('body-parser')
 // , flash    = require('connect-flash')
@@ -68,10 +70,10 @@ app.use(bodyParser.json({limit: '2mb'}))
 app.use(bodyParser.urlencoded({limit: '2mb', extended: false}))
 
 
-// store session state in browser cookie, keep logged in user if exist from browser or server stopped
-var cookieSession = require('cookie-session');
+
+
 app.use(cookieSession({
-    keys: ['keyboard cat cat1', 'keyboard cat cat2'],
+    keys: ['Pame sta aperathou aurio?', 'Nai kai olo to kalokairi@@@'],
     secret: 'tobo!',
     cookie: { maxAge: 60 * 60 * 1000 },
 }))

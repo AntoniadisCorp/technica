@@ -107,7 +107,7 @@
     <!--/.Navbar-->
 
     <!--Carousel Wrapper-->
-    <mdb-carousel class="carousel carousel-slide white-text" [interval]="5000"  [animation]="'slide'">
+    <mdb-carousel *ngIf="!pagerouteError"  class="carousel carousel-slide white-text" [interval]="5000"  [animation]="'slide'">
 
     <!--First slide-->
     <mdb-slide *ngFor="let slideImage of SlideCollection" >

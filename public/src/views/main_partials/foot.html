@@ -95,12 +95,18 @@
             <div class="col-md-6 call-to-action wow animated fadeIn" data-wow-delay="0.6s">
                 <ul>
                     <li >
+                       
                         <!-- Search form -->
-                        <form class="form-inline waves-light" mdbRippleRadius >
-                                <input type="text" class="form-control form-control mr-sm-2" placeholder="stay connected with us.." aria-label="stay connected with us..">
+                        <form  matTooltip="Type an email like: mail@example.com" [matTooltipPosition]="'above'" #subScribe="ngForm" class="form-inline waves-light" mdbRippleRadius novalidate>
+                                <input [ngStyle]="toolTipError" (ngmouseout)="emailChange('none')" (ngModelChange)="emailChange()"
+                                [(ngModel)]="emailicon.status" type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                                 name="email" #email="ngModel" class="form-control form-control mr-sm-2"
+                                 placeholder="stay connected with us.." aria-label="stay connected with us..">
+                                
                         </form>
                     </li>
-                    <li><a md-button href="" class="btn btn-danger">Subscribe!</a></li>
+                    <li><a mat-button (click)="subscribe()" class="btn btn-danger">Subscribe!</a></li>
+                    <li *ngIf="emailicon.used" ><mat-icon class="mat-24" style="border-radius: 50%;" [ngStyle]="{'color': emailicon.color }">{{emailicon.response}}</mat-icon></li>
                 </ul>
             </div>
             <!--/Second column-->
@@ -128,28 +134,28 @@
     <!-- 
         <div class="col-md-4 col-md-4">
                     
-                    Title
-                    <h5 class="title">Opening hours</h5>
-                    
-                                        Opening hours table
-                                        <table class="table">
-                                          <tbody>
-                                            <tr>
-                                              <td>Mon - Thu:</td>
-                                              <td>8am - 9pm</td>
-                                            </tr>
-                                            <tr>
-                                              <td>Fri - Sat:</td>
-                                              <td>8am - 1am</td>
-                                            </tr>
-                                            <tr>
-                                              <td>Sunday:</td>
-                                              <td>9am - 10pm</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                    
-                                    </div>
+        Title
+        <h5 class="title">Opening hours</h5>
+        
+                            Opening hours table
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <td>Mon - Thu:</td>
+                                    <td>8am - 9pm</td>
+                                </tr>
+                                <tr>
+                                    <td>Fri - Sat:</td>
+                                    <td>8am - 1am</td>
+                                </tr>
+                                <tr>
+                                    <td>Sunday:</td>
+                                    <td>9am - 10pm</td>
+                                </tr>
+                                </tbody>
+                            </table>
+        
+                        </div>
      -->
     <!--Copyright-->
     <div class="footer-copyright" data-wow-delay="0.6s">

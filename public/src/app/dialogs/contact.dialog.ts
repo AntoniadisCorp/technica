@@ -160,7 +160,6 @@ export class ContactDialog implements OnInit {
 
                 const ret = success;
 
-
                 if (ret && ret['info']) { // console.log('success respond: ', JSON.stringify(ret))
 
                     this.captchaModel['validbut'] = true, this.activeModal.close('Email')
@@ -168,15 +167,15 @@ export class ContactDialog implements OnInit {
 
                 this.resetCaptchaModel(3500)
                 return;
-                //console.log('error respond: ', JSON.stringify(ret))
+                // console.log('error respond: ', JSON.stringify(ret))
 
             }, error => {
 
                     this.captchaModel['validbut'] = false;
 
-                    this.resetCaptchaModel(3500)
-                    console.log(`TypeError: ${error}`, )
-            })
+                    this.resetCaptchaModel(3500);
+                    console.log(`TypeError: ${error}`, );
+            });
 
     }
     

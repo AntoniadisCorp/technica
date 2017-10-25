@@ -1,11 +1,21 @@
 var express = require('express')
 , router = express.Router()
 , mongo  = require('mongojs')
-, db = mongo('mongodb://antoniadis:2a4b6c!8@ds161069.mlab.com:61069/car_brand', ['tasks', 'tk103'])
+, db = mongo('mongodb://ucrabeksjkigvz9:lijaIRixg4xgEZrBMPKj@brghyzdzarocacc-mongodb.services.clever-cloud.com:27017/brghyzdzarocacc',
+ [], { ssl: true })
 , emailgenerator = require('../ServerJavascript/emailer')
 , auth = (req, res, next) => {
     return next() 
 } // withou auth
+
+db.on('error', function (err) {
+    console.log('database error', err)
+})
+ 
+db.on('connect', function () {
+    console.log('database connected')
+})
+
 // Angular Routes
 
 /**
@@ -18,6 +28,8 @@ var express = require('express')
  */
 
 router.post('/emails', sendEmail) // send email
+
+router.post('/subscribers', subscribe)
 
 /**
  * https Router Delete
@@ -40,13 +52,14 @@ function LoginPageCheck(req, res, next) {
 }
 
 
-
 function sendEmail(req, res, next) {
 
+
     let emailContainer = req.body
-
+    
     console.log('emailer contact dialog: ', emailContainer)
-
+    
+    /* Conctact Emailer Promise Call back */
     emailgenerator.contactPromise(emailContainer, fulfilled => {
 
         let respond = fulfilled
@@ -57,6 +70,37 @@ function sendEmail(req, res, next) {
 
 }
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+function subscribe(req, res, next) {
+    
+    let SubCollection = db.collection('subscribers'),
+        Subscriber = req.body
+        date = new Date()
+
+        newdate = date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1) + '-' + date.getUTCDate() + ' '
+            + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds()
+        console.log('Subscribe: ', Subscriber)
+    
+    
+        // find a document using a native ObjectId
+    SubCollection.findOne({
+        email: Subscriber.email
+    }, (err, doc) => {
+         // doc.email.toString() === '523209c4561c640000000001'
+        if (err)
+            res.json({error: 'Response Error Subscribe Email', errorCode: 0x3})
+        if (!doc)
+            SubCollection.save({email: Subscriber.email, DateCreated: date, valid: true, used: false })
+        
+            res.json({success: 'Email subscribed', successCode: 0x3})
+    })
+    
+}
 
 
 

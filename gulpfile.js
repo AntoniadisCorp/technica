@@ -28,8 +28,8 @@ gulp.task('tslint', function() {
 });
 
 gulp.task('clean', function () {
-  return gulp.src('../TechnicalPRB', {read: false})
-    .pipe(clean());
+  return gulp.src('../TechnicalPRB/*', {read: false})
+    .pipe(clean({force: true}));
 });
 
 
@@ -441,14 +441,15 @@ gulp.task('appjs_other', function() {
 
 	var imagemin = require('gulp-imagemin');
 
-	gulp.src(['./public/styles/font/**/*'])
-		.pipe(gulp.dest('../TechnicalPRB/public/styles/font/'));
+	// gulp.src(['./public/styles/font/**/*'])
+		// .pipe(gulp.dest('../TechnicalPRB/public/styles/font/'));
 	// gulp.src(['./public/font/*']).pipe(gulp.dest('../TechnicalPRB/public/font/'));
 // There is some compatibility with imagemin after the node modules update on 11/02/2016.
-	gulp.src(['./public/img/**/**/*',
-			  '!./public/img/Videos/*'])
-		.pipe(imagemin())
-		.pipe(gulp.dest('../TechnicalPRB/public/img/'));
+
+// gulp.src(['./public/img/**/**/*',
+// '!./public/img/Videos/*'])
+// .pipe(imagemin())
+// .pipe(gulp.dest('../TechnicalPRB/public/img/'))
 
 	/* gulp.src(['./public/node_modules/leaflet/dist/images/*'])
 		.pipe(imagemin())
@@ -457,8 +458,8 @@ gulp.task('appjs_other', function() {
 			// Copy Https certification files and important files
 		gulp.src(['./server*.*']).pipe(gulp.dest('../TechnicalPRB/'));
 		gulp.src(['./package.json']).pipe(gulp.dest('../TechnicalPRB/'));
-		gulp.src(['./public/package.json']).pipe(gulp.dest('../TechnicalPRB/public'))
-		gulp.src(['./public/package-lock.json']).pipe(gulp.dest('../TechnicalPRB/public'))
+		// gulp.src(['./public/package.json']).pipe(gulp.dest('../TechnicalPRB/public'))
+		// gulp.src(['./public/package-lock.json']).pipe(gulp.dest('../TechnicalPRB/public'))
 		gulp.src(['./.gitignore']).pipe(gulp.dest('../TechnicalPRB/'))
 		gulp.src(['./LICENCE']).pipe(gulp.dest('../TechnicalPRB/'))
 });
@@ -940,15 +941,16 @@ function WriteReleaseJSON(tfile, rls){
 * Default task. Run using just (Gulp) inside the
 *               root development app folder
 ******************************************************/
-gulp.task('default',[	'copy_root',
-						'copy_assets',
+gulp.task('default',[	'clean',
+						'copy_root',
+						// 'copy_assets',
 						'copy_bin',
 						'routes',
-						'views',
+						'prod:app',
+						// 'views',
 						// 'copy_nodemodules',
-						'bower_scripts',
 						'appjs_other',
-						'config_files',
+						// 'config_files',
 						'ServerJavascript',
 						// 'styles',
 						'displayBuildMessage'

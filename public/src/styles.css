@@ -90,13 +90,6 @@ body.modal-open {
     height: 400px;
   }
   
-  /* Nav Bar */
-  .demo-layout-transparent .mdl-layout__header,
-  .demo-layout-transparent .mdl-layout__drawer-button {
-    background: rgba(0, 0, 0, 0.3);
-    color: white;
-  }
-  
   /* Header Text */
   .header-text{
     text-align: center;
