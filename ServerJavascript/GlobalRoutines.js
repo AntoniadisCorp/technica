@@ -4,12 +4,12 @@ function generateUUID (version) {
 
     switch (version) {
         case 'timestamp':
-            uuidv = require('uuid/v1');
-            return uuidv()
+            const uuidv1 = require('uuid/v1');
+            return uuidv1()
             break;
         case 'random':
-            uuidv = require('uuid/v5');
-            return uuidv()
+            const uuidv4 = require('uuid/v5');
+            return uuidv4()
             break;
         default:
             const uuidv5 = require('uuid/v5');

@@ -100,11 +100,9 @@ app.use('/task', tasks)
 
 app.all('*',  (req, res, next) => {
 
-    var schema = (req.headers['x-forwarded-proto'] || '').toLowerCase();
-
-    schema = 'https'
-
-    if (schema != "https") {
+    var schema = (req.headers['x-forwarded-proto'] || 'none').toLowerCase();
+    
+    if ( req.hostname != 'localhost' && schema != 'https' ) {
 
         res.set('x-forwarded-proto', 'https');
         res.redirect('https://' + req.get('host') + req.url);
