@@ -9,7 +9,7 @@ var express = require('express')
     return next() 
 } // withou auth
 , GBRoutines = require('../ServerJavascript/GlobalRoutines')
-, machineId = require('machine-id')
+, machineId = require('machine-id');
 
 db.on('error', function (err) {
     console.log('database error', err)
@@ -80,25 +80,26 @@ function sendEmail(req, res, next) {
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
- * @returns {*} res Json
+ * @returns {String} res Json
  */
 function subscribe(req, res, next) {
     
     let SubCollection = db.collection('subscribers'),
-        Subscriber = req.body
-        date = new Date()
+        Subscriber = req.body,
+        date = new Date(),
 
         newdate = date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1) + '-' + date.getUTCDate() + ' '
-            + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds()
+            + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds(),
 
-        userSession = GBRoutines.getUserSession(req, machineId())
+        userSession = GBRoutines.getUserSession(req, machineId());
     
     // console.log('Subscribe: ', Subscriber)
     // find a document using a native ObjectId
     SubCollection.findOne({
+
         email: Subscriber.email
     }, (err, doc) => {
-         // doc.email.toString() === '523209c4561c640000000001'
+
         if (err)
             res.json({error: 'Response Error Subscribe Email', errorCode: 0x3})
         if (!doc)

@@ -21,9 +21,9 @@ function generateUUID (version) {
 }
 
 function getUserSession(req, machineId) {
-    
-    var source = req.header('user-agent');
-        us = useragent.parse(source)
+
+   var  source = req.header('user-agent'),
+        us = useragent.parse(source || {});
 
     return {
         agent: {
@@ -33,7 +33,7 @@ function getUserSession(req, machineId) {
             version: us? us.version : '',
             os: us? us.os : '',
             platform: us? us.platform : '',
-            source: source,
+            source: source || '',
         }, // User Agent we get from headers
         referrer: req.header('referrer') || '', //  Likewise for referrer
         ip: req.header('x-forwarded-for') || req.connection.remoteAddress, // Get IP - allow for proxy

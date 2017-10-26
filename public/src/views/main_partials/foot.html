@@ -98,7 +98,7 @@
                        
                         <!-- Search form -->
                         <form  matTooltip="Type an email like: mail@example.com" [matTooltipPosition]="'above'" #subScribe="ngForm" class="form-inline waves-light" mdbRippleRadius novalidate>
-                                <input [ngStyle]="toolTipError" (ngmouseout)="emailChange('none')" (ngModelChange)="emailChange()"
+                                <input [attr.disabled]="emailicon.disabled? true : null" [ngStyle]="toolTipError" (ngmouseout)="emailChange('none')" (ngModelChange)="emailChange()"
                                 [(ngModel)]="emailicon.status" type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                                  name="email" #email="ngModel" class="form-control form-control mr-sm-2"
                                  placeholder="stay connected with us.." aria-label="stay connected with us..">

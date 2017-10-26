@@ -2,6 +2,7 @@
 var gulp = require('gulp')
 
 ,   concat	 	= require('gulp-concat'),
+	multiconcat = require('gulp-concat-multi'),
 	stripDebug 	= require('gulp-strip-debug'),
 	uglify 		= require('gulp-uglify'),
 	argv 		= require('yargs').argv
@@ -60,6 +61,7 @@ gulp.task('copy_root', function() {
 		gutil.log(gutil.colors.red('[Error]'), err.toString());
 		console.log('\x07',err.message); return this.end(); 
 	}))
+	.pipe(concat('app.js'))
 	.pipe(gulp.dest('../TechnicalPRB/'));
 });
 
@@ -186,7 +188,10 @@ gulp.task('views', function() {
 *		RUN : gulp routes
 ******************************************************/
 gulp.task('routes', function() {
-	gulp.src(['./routes/*.js'])
+	multiconcat({
+		'task.js': './routes/task.js',
+		'index.js': './routes/index.js'
+	  })
 	.pipe(babel())
 	.pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
 	.pipe(gulp.dest('../TechnicalPRB/routes/'));
@@ -213,33 +218,11 @@ gulp.task('ServerJavascript', function() {
 	.pipe(gulp.dest('../TechnicalPRB/ServerJavascript/'));
 
 	// These two files cannot be parsed by uglify module so (maybe because they are written in ES6 format) so I just copy them.
-	gulp.src([
-
-				// './ServerJavascript/ConfigFileUtils.js',
-				// './ServerJavascript/hnLogger.js',
-				// './ServerJavascript/opLogger.js',
-				// './ServerJavascript/Mapper.js',
-				// './ServerJavascript/model.js',
-				// './ServerJavascript/MyServer.js',
-				// './ServerJavascript/Parser.js',
-				// './ServerJavascript/TcpSocketServer.js',
-				// './ServerJavascript/TcpTK103conn.js',
-				// './ServerJavascript/User.js',
-				// './ServerJavascript/UdpManager.js',
-				// './ServerJavascript/ProfileManager.js',
-				// './ServerJavascript/FTPSystemSetupManager.js',
-				'./ServerJavascript/socket.io.js',
-				'./ServerJavascript/emailer.js',
-				'./ServerJavascript/GlobalRoutines.js',
-				// './ServerJavascript/settings.js',
-
-				// './ServerJavascript/Slave_NONE.js',
-				// './ServerJavascript/Slave_PROMETHEUS.js',
-				// './ServerJavascript/Slave_WT520.js',
-				// './ServerJavascript/Slave_WT520R.js',
-				// './ServerJavascript/Master_WT600.js'
-			]
-	)
+	multiconcat({
+		'socket.io.js':'./ServerJavascript/socket.io.js',
+		'emailer.js': './ServerJavascript/emailer.js',
+		'GlobalRoutines.js':'./ServerJavascript/GlobalRoutines.js',		
+	  })
 	.pipe(babel())
 	.pipe(uglify({ mangle: false}).on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
 	.pipe(gulp.dest('../TechnicalPRB/ServerJavascript/'));
