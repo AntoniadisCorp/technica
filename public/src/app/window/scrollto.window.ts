@@ -1,7 +1,7 @@
-import {Component, HostListener, Input, OnInit} from '@angular/core'
-import {trigger, state, style, transition, animate} from '@angular/animations'
-import { SanitizeHtml } from '../directives/index'
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
+import {Component, HostListener, Input, OnInit} from '@angular/core';
+import {trigger, state, style, transition, animate} from '@angular/animations';
+import { SanitizeHtmlDirective } from '../directives';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
     selector: 'go-top-button',
@@ -47,7 +47,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 /**
  * Component for adding a go-to-top button to scrollable browser content
  */
-export class WindowScroll implements OnInit {
+export class WindowScrollComponent implements OnInit {
     animationState: string = 'out';
 
     /**

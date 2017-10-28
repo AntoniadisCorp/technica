@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent,
     /* RegisterListComponent,
     CarboardListComponent,
-    LoginComponent */ } from '../components/index';
+    LoginComponent */ } from '../components';
 
 export const AdminRoutes: Routes = [
 

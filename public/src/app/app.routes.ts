@@ -1,36 +1,26 @@
 // Deprecated import
 // import { provideRouter, RouterConfig } from '@angular/router'
-import { NgModule }             from '@angular/core'
-import { Routes, RouterModule } from '@angular/router'
-import { Location, 
-  LocationStrategy, 
-  PathLocationStrategy, 
-  HashLocationStrategy } from '@angular/common'
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { HomeRoutes, AdminRoutes } from './routes/index'
-import { PageNotFoundComponent } from './components/index'
+import { HomeRoutes, AdminRoutes } from './routes';
+import { PageNotFoundComponent } from './components';
 // import { AuthGuard }             from './_guards/index'
 // import { FeatureRoutes }  from './routes/feature.router';
 
 // Route Configuration
-export const appRoutes: Routes = [
+export const AppRoutes: Routes = [
   // Add routes form a different file
   ...HomeRoutes,
   ...AdminRoutes,
-  // ...FeatureRoutes,
   { path: '**', component: PageNotFoundComponent }
 ];
 
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(appRoutes)
-  ],
-  providers: [
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [ RouterModule.forRoot(AppRoutes) ],
+  providers: [ ],
+  exports: [ RouterModule ]
 })
 
-export class RoutingModule {}
+export class AppRoutingModule {}

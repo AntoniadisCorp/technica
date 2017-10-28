@@ -2,23 +2,16 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
 import { /* AuthenticationService, TaskService,
   AlertService, UserService, */
-   EventsService } from './services/index';
+   EventsService } from './services';
 // import { AuthGuard, DeAuthGuard } from './_guards/index'
 
 @Component({
 
   selector    : 'app-prb',
-  templateUrl : `../views/main_partials/app.html`,
+  templateUrl : 'app.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls   : [ '../styles/app.css'],
-  providers   : [
-      // AuthenticationService,
-    //   AlertService,
-    //   UserService,
-    //   TaskService,
-      EventsService,
-
-  ]
+  styleUrls   : [ 'app.component.css'],
+  providers   : [ EventsService ]
 })
 
 export class AppComponent implements OnInit {

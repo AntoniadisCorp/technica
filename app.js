@@ -14,7 +14,7 @@ var fss = require('fs')
 
 // Configuring Passport
 , passport = require('passport')
-// , session = require('express-session')
+, session = require('express-session')
 , sessionOptions = {}
 , PORT = 3000
 // , HOST = 'localhost' //prokopis.hopto.org
@@ -67,8 +67,6 @@ app.set('view engine', 'ejs')
 app.engine('html', require('ejs').renderFile)
 
 
-// Set Static Folder Components
-app.use(express.static(fpath.join(__dirname + '/public/components')))
 // cookieParser
 app.use(cookieParser())
 // Body Parser MW
@@ -86,9 +84,9 @@ app.use(cookieSession({
 
 
 
-// app.use(session(sessionOptions))
+app.use(session(sessionOptions))
 app.use(passport.initialize())
-// app.use(passport.session())
+app.use(passport.session())
 
 
 

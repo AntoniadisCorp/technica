@@ -4,7 +4,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 @Pipe({
     name: 'sanitizeHtml'
 })
-export class SanitizeHtml implements PipeTransform  {
+export class SanitizeHtmlDirective implements PipeTransform  {
 
    constructor(private _sanitizer: DomSanitizer){}  
 
@@ -20,7 +20,7 @@ export class SanitizeHtml implements PipeTransform  {
     <div class="wow animated fadeIn" style="position: relative;top: -15px;" data-wow-delay="0.2s">
     <div class="col-md-12">
         <div class="jumbotron" [innerHTML]="setHtml | sanitizeHtml">
-            
+
         </div>
         </div>
         `,
@@ -29,10 +29,16 @@ export class SanitizeHtml implements PipeTransform  {
 })
 export class WhiteboxComponent implements OnInit {
 
-    setHtml: SafeHtml
+    setHtml: SafeHtml;
 
-    constructor(private _sanitizer: DomSanitizer){}
+    constructor(private _sanitizer: DomSanitizer) {}
 
 
     ngOnInit() { }
 }
+
+export const WHITEBOX_DIRECTIVES = [
+
+    SanitizeHtmlDirective,
+    WhiteboxComponent
+];

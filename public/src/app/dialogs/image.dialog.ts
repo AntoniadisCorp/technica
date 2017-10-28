@@ -64,7 +64,7 @@ import { Component, Input, Output, ElementRef, EventEmitter,OnInit } from '@angu
        </div>
      </div>
     `,
-    styleUrls: ['../../styles/home.css']
+    styleUrls: ['../components/app-home/home.component.css']
 })
 export class ImageDialog implements OnInit {
 

@@ -1,18 +1,18 @@
 /* global styles to this file, and also import other style files */
 /*<!-- Material Design Angular -->  */
-@import "styles/bs/indigo-pink.min.css";
+/* @import "styles/bs/indigo-pink.min.css"; */
 /* node_modules/@angular/material/prebuilt-themes/indigo-pink.css */
 
 /* <!-- Bower Components Bootstrap --> */
 /* @import "components/bootstrap/dist/css/bootstrap.min.css"; 
 @import "node_modules/font-awesome/css/font-awesome.min.css";*/
-@import "styles/bs/font-awesome.min.css";
+/* @import "styles/bs/font-awesome.min.css"; */
 /* WOW Animation css components  */
 /* @import "components/wow/css/libs/animated.css"; */
 /* Bower Components MDBootstrap */
 /* @import "components/MDBootstrap/css/mdb.min.css"; */
-@import "styles/bs/bootstrap.min.css";
-@import "styles/bs/mdb-free.min.css";
+/* @import "styles/bs/bootstrap.min.css"; */
+/* @import "styles/bs/mdb-free.min.css"; */
 
 /* @import "styles/mdb.css"; */
 
@@ -169,6 +169,7 @@ body.modal-open {
       color: black;
       font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
       -moz-text-size-adjust: 100%;
+      overflow: hidden;
   }
   
   

@@ -6,14 +6,14 @@ import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { /* BrowserAnimationsModule */ NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 // Hammer Module
 import * as Hammer from 'hammerjs';
 
 // Routing Module
-import { RoutingModule } from './app.routes';
+import { AppRoutingModule } from './app.routes';
 
 // Material Module and fonts, Fontawesome
 // import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
@@ -39,9 +39,12 @@ import { ReCaptchaModule } from 'angular2-recaptcha';
 /* Components */
 import { AppComponent } from './app.component';
 
-import { /* TaskComponent,
-        SocketComponent,
-        FooterComponent,  */
+/* Dialogs */
+import { ContactDialog, ImageDialog } from './dialogs';
+import { WindowScrollComponent, ScrollSpyDirective } from './window';
+
+/* Components */
+import {
         MenuComponent,
         AdminComponent,
         FootComponent,
@@ -50,31 +53,46 @@ import { /* TaskComponent,
         BlogPageComponent,
         PolicyComponent,
         ArticleComponent
-       /*  LoginComponent,
-        RegisterListComponent,
-        CarboardListComponent,
-        AlertComponent */ } from './components/index';
+     } from './components';
+
+const APP_COMPONENTS = [
+
+  MenuComponent,
+  AdminComponent,
+  FootComponent,
+  HomePageComponent,
+  PageNotFoundComponent,
+  BlogPageComponent,
+  PolicyComponent,
+  ArticleComponent,
+  WindowScrollComponent
+];
 
 /* Services */
-import { WindowRef, /* PreloadedRecaptchaAPIService, */ EmailsService } from './services/index';
+import { WindowRef, EmailsService } from './services';
 
-/* Dialogs */
-import { ContactDialog, ImageDialog } from './dialogs/index';
-import { WindowScroll, ScrollSpyDirective } from './window/index';
+
 
 /* Directives */
-import { WhiteboxComponent, SanitizeHtml } from './directives/index';
+import { WHITEBOX_DIRECTIVES, WhiteboxComponent } from './directives';
+
+
+const APP_DIRECTIVES = [
+
+  ScrollSpyDirective,
+  WHITEBOX_DIRECTIVES
+];
 
 @NgModule({
 
   imports: [
 
-        BrowserModule,
+        BrowserModule.withServerTransition({appId: 'Technical-PRB'}),
         HttpModule,
         ReactiveFormsModule,
         FormsModule,
         NgbModule.forRoot(),
-        RoutingModule,
+        AppRoutingModule,
         // Angular2FontawesomeModule,
         MatRippleModule, MatButtonModule, MatCardModule, MatProgressSpinnerModule,
         MatCheckboxModule, MatChipsModule, MatDialogModule, MatGridListModule, MatInputModule, MatPaginatorModule, MatButtonToggleModule,
@@ -85,7 +103,6 @@ import { WhiteboxComponent, SanitizeHtml } from './directives/index';
           apiKey: 'AIzaSyDBzMhhrfwq7kbyqto_oHzR0vozXEZJHd0'
         }),
         ReCaptchaModule,
-       /*  RecaptchaModule.forRoot(), */
         CommonModule,
         MDBBootstrapModule.forRoot()
     ],
@@ -93,39 +110,22 @@ import { WhiteboxComponent, SanitizeHtml } from './directives/index';
   declarations: [
 
     AppComponent,
-    PageNotFoundComponent,
-    HomePageComponent,
-    BlogPageComponent,
-    MenuComponent,
-    FootComponent,
-    PolicyComponent,
+
     ContactDialog,
     ImageDialog,
-    WindowScroll,
-    ScrollSpyDirective,
-    WhiteboxComponent,
-    SanitizeHtml,
-    AdminComponent,
-    ArticleComponent
-    /* TaskComponent,
-    SocketComponent,
-
-    FooterComponent,
-
-    LoginComponent,
-    RegisterListComponent,
-    CarboardListComponent,
-    AlertComponent */
+    ...APP_COMPONENTS,
+    ...APP_DIRECTIVES
     ],
   entryComponents: [
-    WhiteboxComponent,
-    // ScrollSpyDirective,
+
     ContactDialog,
     ImageDialog
   ],
 
-  providers: [
 
+  providers: [{
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy },
 
    /*  {
       provide: RecaptchaLoaderService,
@@ -141,10 +141,7 @@ import { WhiteboxComponent, SanitizeHtml } from './directives/index';
   ],
 
 
-  bootstrap:    [
-
-    AppComponent
-    ],
+  bootstrap:    [ AppComponent ],
 
   schemas: [ NO_ERRORS_SCHEMA ]
 })

@@ -313,7 +313,7 @@ var tsResult = gulp.src(['./public/app/**/*.ts',
 
 
 // Generate systemjs-based bundle (app/app.js)
-gulp.task('prod:app', ['bower_scripts'], function() {
+gulp.task('prod:app', function() {
 	/* var builder = new systemjsBuilder('./public', './public/systemjs.config.js');
 	return builder.buildStatic('./public/app', 'public/app/ang4.js'); */
 	gulp.src(['./public/dist/**/**/**/**/*']).pipe(gulp.dest('../TechnicalPRB/public/dist/'));
@@ -362,9 +362,9 @@ gulp.task('bower_scripts', function() { //bundle:app
     // .pipe(concat('systemjs.conifg.js'))
 	// .pipe(gulp.dest('./public/'))		// Put resulting file in the development folder
 	// .pipe(gulp.dest('../TechnicalPRB/public/'));		// Put resulting file in the development folder
-	gulp.src(['./public/components/jquery/dist/jquery.min.js',
+	gulp.src([
+			 './public/components/jquery/dist/jquery.min.js',
 			  './public/components/popper.js/dist/umd/popper.min.js',
-			//   './public/components/popper.min.js.map',
 			  './public/components/tether/dist/js/tether.min.js',
 			  './public/components/bootstrap/dist/js/bootstrap.min.js',
 			  './public/components/wow/dist/wow.min.js',

@@ -37,7 +37,7 @@ interface Validator {
 
 @Component({
     selector: 'contactus',
-    templateUrl: '../../views/main_partials/contact.html',
+    templateUrl: 'contact.component.html',
     styles : [`
     .modal-header {
         text-align: center;

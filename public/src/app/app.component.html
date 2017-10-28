@@ -1,0 +1,79 @@
+<!-- <style>
+    .collapse.in {
+    display: block;
+}
+.collapse {
+  display: none;
+}
+#banner {
+  color: #fff;
+}
+#banner.fa5 {
+  background-color: #489fdf;
+  border-bottom: rgba(0,0,0,0.2);
+}
+#banner.fa5 .message-container {
+  padding: 40px 0;
+}
+#banner .message-container {
+  display: table;
+  width: auto;
+  margin: 0 auto;
+  padding: 15px 0;
+}
+#banner .tagline, #banner .action {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#banner .tagline {
+  font-weight: 200;
+  font-size: 16px;
+  padding-right: 30px;
+}
+#banner.fa5 .tagline {
+  font-size: 24px;
+}
+
+#banner.fa5 .btn-primary {
+  font-weight: 600;
+  font-size: 22px;
+  padding: 14px 28px;
+  border-radius: 30px;
+  color: #489fdf;
+  background-color: #fff;
+  border-color: #418fc9;
+  border-bottom-width: 2px;
+  text-shadow: none;
+}
+
+#banner.fa5 .btn-primary:hover, #banner.fa5 .btn-primary:focus, #banner.fa5 .btn-primary:active, #banner.fa5 .btn-primary.active, .open>#banner.fa5 .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: rgba(0,0,0,0.2);
+  border-color: rgba(0,0,0,0.2);
+  border-bottom-color: rgba(0,0,0,0.2);
+}
+#banner.fa5 .btn-primary:active, #banner.fa5 .btn-primary.active, .open>#banner.fa5 .btn-primary.dropdown-toggle {
+  background-image: none;
+}
+</style> -->
+<!-- Banner -->
+<!-- <div class="hidden-print fa5 collapse in" id="banner" aria-expanded="true" style="">
+        <div class="container">
+          <div class="message-container">
+            <div class="tagline">
+              <span id="rotating-message">September is your last chance to get FA Pro and <strong>ALL</strong> KS rewards for just $40!</span>
+            </div>
+            <div class="action">
+              <a id="rotating-url" class="btn btn-primary btn-lg btn-block" href="https://fontawesome.com/?utm_source=font_awesome_homepage&amp;utm_medium=display&amp;utm_campaign=september_last_chance&amp;utm_content=banner" target="_blank">Pre-order FA Pro! &nbsp;<i class="fas fas-external-link" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+      </div> -->
+<!-- /Banner -->
+<navig *ngIf="pageType"  ></navig>
+
+<div class="section">
+    <router-outlet></router-outlet> 
+</div>
+

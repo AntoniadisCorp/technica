@@ -10,25 +10,11 @@
 
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
-    <!-- JQuery JavaScript -->
-    <!-- <script type="text/javascript" src="jquery/dist/jquery.min.js" crossorigin="anonymous"></script> -->
-    <!-- Popper JavaScript -->
-    <!-- <script type="text/javascript" src="popper.js/dist/umd/popper.min.js"></script> -->
-    <!-- Bootstrap JavaScript -->
-    <!-- <script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
-    <!-- Tether Javascript -->
-    <!-- <script type="text/javascript" src="tether/dist/js/tether.min.js" crossorigin="anonymous"> </script> -->
-    <!-- WOW Javascript -->
-    <!-- <script type="text/javascript" src="wow/dist/wow.min.js" ></script> -->
-    <script src="https://www.google.com/recaptcha/api.js"></script> <!-- ?render=explicit&amp;onload=onloadCallback -->
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <!-- Material Design Lite Icons  -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <!-- <script src="/socket.io/socket.io.js"></script> -->
-    
-    <script src="gl1.js"></script>
-   
-   
   </head>
 
   <body >
@@ -36,7 +22,6 @@
   </body>
   <script>
   
-  // new WOW().init();
   var wow = new WOW(
     {
       boxClass:     'wow',      // animated element css class (default is wow)
@@ -47,17 +32,14 @@
       callback:     function(box) {
         // the callback is fired every time an animation is started
         // the argument that is passed in is the DOM node being animated
-        // console.log("WOW: animating <" + box.tagName.toLowerCase() + ">")
-        // console.log(JSON.stringify(wow))
       },
       scrollContainer: null // optional scroll container selector, otherwise use window
     }
   );
-      wow.init(); 
+   wow.init(); 
    if ($('.wow').hasClass('animated')) {
             $(this).removeClass('animated');
             $(this).removeAttr('style');
-           
    }
   </script>
 
