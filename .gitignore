@@ -78,7 +78,6 @@ components/
 # styles/bs/
 
 # Javascript files
-public/*.js*
 ang4.js
 *.mp4
 *.ai
@@ -113,5 +112,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
 
 package-lock*

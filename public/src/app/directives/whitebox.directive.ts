@@ -1,4 +1,4 @@
-import { Component, Pipe,  OnInit, PipeTransform } from '@angular/core'
+import { Component, Pipe,  OnInit, PipeTransform, Input } from '@angular/core'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 
 @Pipe({
@@ -23,13 +23,12 @@ export class SanitizeHtmlDirective implements PipeTransform  {
 
         </div>
         </div>
-        `,
-    inputs: ['setHtml']
+        `
     
 })
 export class WhiteboxComponent implements OnInit {
 
-    setHtml: SafeHtml;
+    @Input() setHtml: SafeHtml;
 
     constructor(private _sanitizer: DomSanitizer) {}
 
