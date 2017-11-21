@@ -22,6 +22,7 @@ import { MatRippleModule,
 MatButtonModule, MatCardModule, MatProgressSpinnerModule,
 MatCheckboxModule, MatChipsModule, MatDialogModule, MatGridListModule, MatInputModule, MatPaginatorModule, MatButtonToggleModule,
 MatTabsModule, MatIconModule, MatFormFieldModule, MatTooltipModule, MatSnackBarModule } from '@angular/material';
+
 // import { PlatformModule } from '@angular/cdk/platform'
 // import { A11yModule } from '@angular/cdk/a11y'
 
@@ -123,9 +124,10 @@ const APP_DIRECTIVES = [
   ],
 
 
-  providers: [{
+  providers: [
+    /* {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy },
+      useClass: HashLocationStrategy }, */
 
    /*  {
       provide: RecaptchaLoaderService,

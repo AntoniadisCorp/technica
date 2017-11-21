@@ -72,7 +72,6 @@ coverage
 
 # Bower dependency directory (https://bower.io/)
 bower_components
-components/
 
 # Styles bs
 # styles/bs/

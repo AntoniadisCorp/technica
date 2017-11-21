@@ -1,0 +1,6 @@
+export * from './home.component'
+export * from './nav.component'
+export * from './foot.component'
+export * from './not-found.component'
+export * from './blog.component'
+export * from './privacy.component'
