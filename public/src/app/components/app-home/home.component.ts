@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, HostListener, Renderer2, Inject, ViewChild } from '@angular/core';
 import { NgbModal, NgbActiveModal, ModalDismissReasons, NgbTooltip } from '@ng-bootstrap/ng-bootstrap'
-import { ContactDialog } from '../dialogs/index'
-import { imagesPath, imagesProjectsPath, jpg } from '../variables'
-import { Scrollspy }      from '../classes'
-import { isEmpty } from '../routines'
+import { ContactDialog } from '../../dialogs'
+import { imagesPath, imagesProjectsPath, jpg } from '../../variables'
+import { Scrollspy }      from '../../classes'
+import { isEmpty } from '../../routines'
 import { DOCUMENT } from '@angular/platform-browser'
 import { MatSnackBar } from '@angular/material'
-import { EventsService } from '../services'
+import { EventsService } from '../../services'
 
 interface GetEventTarget extends EventTarget {
     innerWidth: number

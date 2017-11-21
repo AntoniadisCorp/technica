@@ -4,7 +4,7 @@ import {PageEvent} from '@angular/material';
 @Component({
     // selector: 'blog',
     templateUrl: 'blog.component.html',
-    styleUrls: ['blog.css']
+    styleUrls: ['blog.component.css']
 })
 export class BlogPageComponent implements OnInit {
 
