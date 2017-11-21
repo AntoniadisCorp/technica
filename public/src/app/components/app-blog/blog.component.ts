@@ -3,8 +3,8 @@ import {PageEvent} from '@angular/material';
 
 @Component({
     // selector: 'blog',
-    templateUrl: '../../views/ang_partial/blog.ejs',
-    styleUrls: ['../../styles/blog.css']
+    templateUrl: 'blog.component.html',
+    styleUrls: ['blog.css']
 })
 export class BlogPageComponent implements OnInit {
 

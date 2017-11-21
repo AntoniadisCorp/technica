@@ -47,7 +47,6 @@ import { WindowScrollComponent, ScrollSpyDirective } from './window';
 /* Components */
 import {
         MenuComponent,
-        AdminComponent,
         FootComponent,
         HomePageComponent,
         PageNotFoundComponent,
@@ -59,7 +58,6 @@ import {
 const APP_COMPONENTS = [
 
   MenuComponent,
-  AdminComponent,
   FootComponent,
   HomePageComponent,
   PageNotFoundComponent,

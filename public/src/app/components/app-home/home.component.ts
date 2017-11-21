@@ -19,8 +19,8 @@ interface SetEvent extends Event {
 
 @Component({
     selector: 'home-component',
-    templateUrl: '../../views/main_partials/home.ejs',
-    styleUrls: ['../../styles/home.css']
+    templateUrl: 'home.component.html',
+    styleUrls: ['home.css']
 })
 
 

@@ -1,0 +1,11 @@
+footer.page-footer {
+    background-color: #1C2331;
+    margin-top: 0;
+    border-top: 4px solid #4285F4;
+}
+div ul.list-group {
+    padding-left: 27px !important;
+}
+div ul.list-group li {
+    padding-top: 2px;
+}
